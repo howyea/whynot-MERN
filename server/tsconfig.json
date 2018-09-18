@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "outDir": "../server_dist/",
+    "module": "commonjs",
+    "target": "es5",
+    // "sourceMap": true,
+    "allowJs": true,
+    "lib": ["es5", "es6", "dom"]
+  },
+  "files": [
+    "../node_modules/@types/node/index.d.ts"
+  ],
+  "include": [
+    "./**/*"
+    ]
+}

@@ -1,20 +1,20 @@
-const express = require('express');
-const fs = require('fs');
+import * as express from 'express';
+import * as fs from 'fs';
 const historyApiFallback = require('connect-history-api-fallback');
 const mongoose = require('mongoose');
-const path = require('path');
+import * as path from 'path';
 const webpack = require('webpack');
-var bodyParser = require('body-parser');
+import * as bodyParser from 'body-parser';
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
-// const config = require('../config/config');
-const webpackConfig = require('../webpack.config');
+// import config from '../config/config';
+import * as webpackConfig from '../webpack.config';
 
 const isDev = process.env.NODE_ENV !== 'production';
 const port  = process.env.PORT || 8086;
 
-var User = require('./models/User');
+const  User = require('./models/User');
 // Configuration
 // ================================================================================================
 
@@ -41,7 +41,7 @@ if (isDev) {
     
     app.use(webpackDevMiddleware(compiler, {
         publicPath: webpackConfig.output.publicPath,
-        contentBase: path.resolve(__dirname, '../client/public'),
+        contentBase: path.resolve(__dirname, '../../client/public'),
         stats: {
             colors: true,
             hash: false,
