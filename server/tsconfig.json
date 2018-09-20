@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "outDir": "../server_dist/",
+    "outDir": "./server_dist/",
     "module": "commonjs",
     "target": "es5",
+    "rootDir": "../",
     // "sourceMap": true,
     "allowJs": true,
-    "lib": ["es5", "es6", "dom"]
+    "lib": ["es5", "es6", "dom"],
+    "alwaysStrict": false
   },
   "files": [
     "../node_modules/@types/node/index.d.ts"

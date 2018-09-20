@@ -9,7 +9,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
 // import config from '../config/config';
-import * as webpackConfig from '../webpack.config';
+import * as webpackConfig from './webpack.config';
 
 const isDev = process.env.NODE_ENV !== 'production';
 const port  = process.env.PORT || 8086;

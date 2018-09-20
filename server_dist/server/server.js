@@ -9,7 +9,7 @@ var bodyParser = require("body-parser");
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
 // import config from '../config/config';
-var webpackConfig = require("../webpack.config");
+var webpackConfig = require("./webpack.config");
 var isDev = process.env.NODE_ENV !== 'production';
 var port = process.env.PORT || 8086;
 var User = require('./models/User');
