@@ -1,20 +1,20 @@
 import * as express from 'express';
 import * as fs from 'fs';
-const historyApiFallback = require('connect-history-api-fallback');
-const mongoose = require('mongoose');
+import * as historyApiFallback from 'connect-history-api-fallback';
+import * as mongoose from 'mongoose';
 import * as path from 'path';
-const webpack = require('webpack');
+import * as webpack from 'webpack';
 import * as bodyParser from 'body-parser';
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
+import * as webpackDevMiddleware from 'webpack-dev-middleware';
+import * as webpackHotMiddleware from 'webpack-hot-middleware';
 
 // import config from '../config/config';
 import * as webpackConfig from './webpack.config';
+import main from './routers/main'
 
 const isDev = process.env.NODE_ENV !== 'production';
 const port  = process.env.PORT || 8086;
 
-const  User = require('./models/User');
 // Configuration
 // ================================================================================================
 
@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended:false }));
 
 // API routes
 // require('./routes')(app);
-app.use('/', require('./routers/main'));
+app.use('/', main);
 
 if (isDev) {
   const compiler = webpack(webpackConfig);

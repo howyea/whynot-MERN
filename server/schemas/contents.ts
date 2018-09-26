@@ -2,11 +2,11 @@
  * @Author: Micheal.Ye 
  * @Date: 2018-08-09 15:44:21 
  * @Last Modified by: Micheal.Ye
- * @Last Modified time: 2018-08-10 10:31:23
+ * @Last Modified time: 2018-09-21 09:19:01
  */
-var mongoose = require('mongoose');
+import * as  mongoose from 'mongoose';
 //内容的表结构
-module.exports = new mongoose.Schema({
+export default new mongoose.Schema({
     //关联字段-内容的分类id
     category: {
         type: mongoose.Schema.Types.ObjectId,

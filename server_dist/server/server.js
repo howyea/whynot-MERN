@@ -1,18 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
-var historyApiFallback = require('connect-history-api-fallback');
-var mongoose = require('mongoose');
+var historyApiFallback = require("connect-history-api-fallback");
+var mongoose = require("mongoose");
 var path = require("path");
-var webpack = require('webpack');
+var webpack = require("webpack");
 var bodyParser = require("body-parser");
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
+var webpackDevMiddleware = require("webpack-dev-middleware");
+var webpackHotMiddleware = require("webpack-hot-middleware");
 // import config from '../config/config';
 var webpackConfig = require("./webpack.config");
+var main_1 = require("./routers/main");
 var isDev = process.env.NODE_ENV !== 'production';
 var port = process.env.PORT || 8086;
-var User = require('./models/User');
 // Configuration
 // ================================================================================================
 // Set up Mongoose
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(express.json());
 // API routes
 // require('./routes')(app);
-app.use('/', require('./routers/main'));
+app.use('/', main_1.default);
 if (isDev) {
     var compiler = webpack(webpackConfig);
     app.use(historyApiFallback({
