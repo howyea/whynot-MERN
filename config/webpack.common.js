@@ -27,7 +27,6 @@ module.exports = {
       'app': 'client/app'
     }
   },
-
   module: {
     rules: [
       // JS files

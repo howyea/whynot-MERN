@@ -9,7 +9,7 @@ import * as webpackDevMiddleware from 'webpack-dev-middleware';
 import * as webpackHotMiddleware from 'webpack-hot-middleware';
 
 // import config from '../config/config';
-import * as webpackConfig from './webpack.config';
+import * as webpackConfig from '../webpack.config';
 import main from './routers/main'
 
 const isDev = process.env.NODE_ENV !== 'production';
@@ -51,10 +51,12 @@ if (isDev) {
       modules: false
     }
   }));
-
+  console.log("来这里");
   app.use(webpackHotMiddleware(compiler));
   app.use(express.static(path.resolve(__dirname, '../dist')));
 } else {
+  console.log("来这里22222");
+
   app.use(express.static(path.resolve(__dirname, '../dist')));
   app.get('*', function (req, res) {
     res.sendFile(path.resolve(__dirname, '../dist/index.html'));

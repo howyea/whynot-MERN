@@ -5,9 +5,9 @@ nodemon({
   execMap: {
     js: 'node'
   },
-  script: path.join(__dirname, 'server_dist/server/server'),
+  script: path.join(__dirname, 'server_d/server'),
   ignore: [],
-  watch: process.env.NODE_ENV !== 'production' ? ['server_dist/server/*'] : false,
+  watch: process.env.NODE_ENV !== 'production' ? ['server_d/*'] : false,
   ext: 'js'
 })
 .on('restart', function() {

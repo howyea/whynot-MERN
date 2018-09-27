@@ -9,7 +9,7 @@ var bodyParser = require("body-parser");
 var webpackDevMiddleware = require("webpack-dev-middleware");
 var webpackHotMiddleware = require("webpack-hot-middleware");
 // import config from '../config/config';
-var webpackConfig = require("./webpack.config");
+var webpackConfig = require("../webpack.config");
 var main_1 = require("./routers/main");
 var isDev = process.env.NODE_ENV !== 'production';
 var port = process.env.PORT || 8086;
@@ -42,10 +42,12 @@ if (isDev) {
             modules: false
         }
     }));
+    console.log("来这里");
     app.use(webpackHotMiddleware(compiler));
     app.use(express.static(path.resolve(__dirname, '../dist')));
 }
 else {
+    console.log("来这里22222");
     app.use(express.static(path.resolve(__dirname, '../dist')));
     app.get('*', function (req, res) {
         res.sendFile(path.resolve(__dirname, '../dist/index.html'));
