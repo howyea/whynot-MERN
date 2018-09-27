@@ -2,7 +2,7 @@
  * @Author: Micheal.Ye 
  * @Date: 2018-03-09 14:10:51 
  * @Last Modified by: Micheal.Ye
- * @Last Modified time: 2018-09-13 17:39:27
+ * @Last Modified time: 2018-09-27 13:39:27
  */
 import * as React from 'react'
 import { Route } from 'react-router-dom';
@@ -22,7 +22,7 @@ class App extends React.Component {
                     <MyIcons width="1" url={require('../images/logo.png')}></MyIcons>
                 </Header>
                 {/* <Content> */}
-                    <Route exact path="/app/blogs" component={Blogs} />
+                    <Route exact path="/app" component={Blogs} />
                 {/* </Content> */}
             </div>
         )

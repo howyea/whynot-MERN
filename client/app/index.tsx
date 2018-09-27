@@ -11,7 +11,7 @@ ReactDOM.render(
         <Router>
             <Switch>
                 <Route path="/app" component={App} />
-                <Route exact path="/ad" component={Ad}/>
+                <Route exact path="/" component={Ad}/>
             </Switch>
         </Router>,
     document.getElementById('app')
