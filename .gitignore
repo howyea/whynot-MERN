@@ -1,5 +1,5 @@
 # Compiled files
-dist/
+# dist/
 
 # Config file
 config/config.js
