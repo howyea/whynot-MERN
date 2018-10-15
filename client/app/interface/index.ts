@@ -2,7 +2,7 @@
  * @Author: Micheal.Ye 
  * @Date: 2018-09-10 15:39:23 
  * @Last Modified by: Micheal.Ye
- * @Last Modified time: 2018-10-12 16:54:41
+ * @Last Modified time: 2018-10-15 13:44:58
  */
 import request from "superagent";
 import { Base64 } from 'js-base64';
@@ -11,6 +11,11 @@ async function getList () {
     const {body} = await request.get('/api/list', {
         page: 1
     });
+    return body;
+}
+
+async function login ( params ) {
+    const {body} = await request.post('/user/login', params);
     return body;
 }
 
@@ -39,5 +44,6 @@ async function word2voice () {
 
 export {
     getList,
+    login,
     word2voice
 }
