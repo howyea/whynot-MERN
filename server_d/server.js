@@ -20,7 +20,8 @@ var port = process.env.PORT || 8086;
 // mongoose.Promise = global.Promise;
 var app = express();
 // app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 // app.use(express.json());
 // API routes
 // require('./routes')(app);

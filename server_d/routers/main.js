@@ -9,6 +9,7 @@ var express = require("express");
 var Category_1 = require("../models/Category");
 var Content_1 = require("../models/Content");
 var User_1 = require("../models/User");
+var utils_1 = require("../utils");
 // const data:Data = {
 //     category: '',
 //     count: 0,
@@ -86,8 +87,8 @@ var Routers = /** @class */ (function () {
                 code: 0,
                 message: '',
                 userInfo: {
-                    _id: '',
-                    username: ''
+                    username: '',
+                    token: ''
                 }
             };
             if (username == '' || password == '') {
@@ -101,7 +102,6 @@ var Routers = /** @class */ (function () {
                 username: username,
                 password: password
             }).then(function (userInfo) {
-                console.log(' 可以登录');
                 if (!userInfo) {
                     responseData.code = 2;
                     responseData.message = '用户名或密码错误';
@@ -109,10 +109,11 @@ var Routers = /** @class */ (function () {
                     return;
                 }
                 //用户名和密码是正确的
+                var token = utils_1.generateToken({ uid: userInfo._id });
                 responseData.message = '登录成功';
                 responseData.userInfo = {
-                    _id: userInfo._id,
-                    username: userInfo.username
+                    username: userInfo.username,
+                    token: token
                 };
                 res.json(responseData);
                 return;

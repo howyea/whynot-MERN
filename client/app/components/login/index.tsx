@@ -8,16 +8,17 @@ export interface LoginProps {
 }
  
 export interface LoginState {
-    
+    username: string,
+    password: string
 }
  
 class Login extends React.Component<LoginProps, LoginState> {
-    state = { }
+    readonly state: LoginState = {
+        username: '',
+        password: ''
+     }
     componentDidMount () {
-        login({
-            username: 'admin',
-            password: 'admin'
-        });
+        
     }
     render() { 
         return ( 
@@ -26,13 +27,33 @@ class Login extends React.Component<LoginProps, LoginState> {
                 id="text-with-close-button"
                 label="请输入账号"
                 className="md-cell md-cell--bottom"
+                onChange={( username: string ) => {
+                    
+                    this.setState({
+                        username
+                    })
+                }}
                 />
                 <TextField
                 id="text-with-close-button"
                 label="请输入密码"
                 className="md-cell md-cell--bottom"
+                onChange={( password: string ) => {
+                    this.setState({
+                        password
+                    })
+                }}
                 />
-                <Button className="md-cell md-cell--bottom" flat primary swapTheming>登录</Button>
+                <Button className="md-cell md-cell--bottom" flat primary swapTheming onClick={() => {
+                    const {
+                        username,
+                        password
+                    } = this.state;
+                    login({
+                        username,
+                        password
+                    });
+                }}>登录</Button>
             </div>
          );
     }
