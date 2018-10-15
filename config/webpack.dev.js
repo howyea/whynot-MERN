@@ -19,10 +19,10 @@ module.exports = merge(commonConfig, {
     chunkFilename: '[id].chunk.js'
   },
 
-  devServer: {
-    contentBase: '../client/public',
-    historyApiFallback: true,
-    stats: 'minimal', // none (or false), errors-only, minimal, normal (or true) and verbose
+//   devServer: {
+//     contentBase: '../client/public',
+//     historyApiFallback: true,
+//     stats: 'minimal', // none (or false), errors-only, minimal, normal (or true) and verbose
     // proxy: {
     //     '/api/*': {
     //         target: 'http://localhost:8088',
@@ -35,5 +35,5 @@ module.exports = merge(commonConfig, {
     //         secure: false,
     //     }
     // },  
-}
+// }
 });
