@@ -2,7 +2,7 @@
  * @Author: Micheal.Ye 
  * @Date: 2018-09-06 09:41:39 
  * @Last Modified by: Micheal.Ye
- * @Last Modified time: 2018-09-06 11:57:23
+ * @Last Modified time: 2018-10-15 16:27:06
  */
 import * as React from 'react';
 import { MyIcons } from "../styled";
@@ -25,7 +25,12 @@ class Ad extends React.Component<AdProps, {}> {
                     _count();
                 }, 1000);
             } else {
-                this.props.history.push('/app');
+                const _token = localStorage.getItem('token');
+                if ( _token ) {
+                    this.props.history.push('/app');
+                } else {
+                    this.props.history.push('/app/login');
+                }
             }
         }
         _count();
