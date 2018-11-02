@@ -8,9 +8,10 @@ import request from "superagent";
 import { Base64 } from 'js-base64';
 import md5 from 'md5';
 async function getList () {
+    const token = localStorage.getItem('token');
     const {body} = await request.get('/api/list', {
         page: 1
-    });
+    }).set('token', token);
     return body;
 }
 
