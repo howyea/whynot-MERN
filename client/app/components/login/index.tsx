@@ -4,7 +4,7 @@ import { TextField, Button, Grid, Cell } from "react-md";
 import { login } from "../../interface";
 
 export interface LoginProps {
-    
+    history: any
 }
  
 export interface LoginState {
@@ -44,15 +44,19 @@ class Login extends React.Component<LoginProps, LoginState> {
                     })
                 }}
                 />
-                <Button className="md-cell md-cell--bottom" flat primary swapTheming onClick={() => {
+                <Button className="md-cell md-cell--bottom" flat primary swapTheming onClick={async () => {
                     const {
                         username,
                         password
                     } = this.state;
-                    login({
+                    const result = await login({
                         username,
                         password
                     });
+                    if ( result.code === 0 ) {
+                        localStorage.setItem('token', result.userInfo.token );
+                        this.props.history.push('/app');
+                    }
                 }}>登录</Button>
             </div>
          );

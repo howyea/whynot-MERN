@@ -59,7 +59,6 @@ class Routers {
     }
     private blogRouters () : void {
         this.router.get('/api/list', (req, res, next) => {
-            console.log('能请求')
             res.header("Content-Type", "application/json");
             this.data.category = req.query.category || '';
             this.data.page = Number(req.query.page || 1);
@@ -72,7 +71,6 @@ class Routers {
             if (this.data.category) {
                 where.category = this.data.category
             }
-            console.log(where);
             Content.where({category:"5b6beb1206a5636761a0b6e6"}).countDocuments().then((count) => {
                 this.data.count = count;
                 //计算总页数
@@ -87,7 +85,6 @@ class Routers {
                     addTime: -1
                 })
             }).then((contents) => {
-                console.log('这也能请求')
                 this.data.contents = contents;
                 // res.render('main/index', data);
                 res.json(this.data);
