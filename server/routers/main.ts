@@ -10,7 +10,7 @@ import * as path from 'path';
 import Category from "../models/Category";
 import Content from "../models/Content";
 import User from '../models/User';
-import { generateToken } from '../utils';
+import { generateToken, verifyToken } from '../utils';
 interface Data{
     category: string,
     count: number,
@@ -59,7 +59,17 @@ class Routers {
     }
     private blogRouters () : void {
         this.router.get('/api/list', (req, res, next) => {
-            res.header("Content-Type", "application/json");
+            const { token }= req.headers;
+            if ( token ) {
+                interface Result{
+                    uid: string
+                }
+                const result: Result = verifyToken( token );
+                const { uid } = result;
+                if ( uid ) {
+                    console.log("这是用户id"+uid);
+                }
+            }
             this.data.category = req.query.category || '';
             this.data.page = Number(req.query.page || 1);
             interface Where {

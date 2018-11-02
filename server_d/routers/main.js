@@ -47,8 +47,14 @@ var Routers = /** @class */ (function () {
     Routers.prototype.blogRouters = function () {
         var _this_1 = this;
         this.router.get('/api/list', function (req, res, next) {
-            console.log('能请求');
-            res.header("Content-Type", "application/json");
+            var token = req.headers.token;
+            if (token) {
+                var result = utils_1.verifyToken(token);
+                var uid = result.uid;
+                if (uid) {
+                    console.log("这是用户id" + uid);
+                }
+            }
             _this_1.data.category = req.query.category || '';
             _this_1.data.page = Number(req.query.page || 1);
             var where = {
@@ -57,7 +63,6 @@ var Routers = /** @class */ (function () {
             if (_this_1.data.category) {
                 where.category = _this_1.data.category;
             }
-            console.log(where);
             Content_1.default.where({ category: "5b6beb1206a5636761a0b6e6" }).countDocuments().then(function (count) {
                 _this_1.data.count = count;
                 //计算总页数
@@ -71,7 +76,6 @@ var Routers = /** @class */ (function () {
                     addTime: -1
                 });
             }).then(function (contents) {
-                console.log('这也能请求');
                 _this_1.data.contents = contents;
                 // res.render('main/index', data);
                 res.json(_this_1.data);

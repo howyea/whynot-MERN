@@ -16,3 +16,17 @@ function generateToken(data) {
     return token;
 }
 exports.generateToken = generateToken;
+function verifyToken(token) {
+    var cert = fs.readFileSync(path.join(__dirname, '../../rsa_public_key.pem')), res = { uid: '' };
+    try {
+        var result = jwt.verify(token, cert, { algorithms: ['RS256'] }) || {};
+        var _a = result.exp, exp = _a === void 0 ? 0 : _a, current = Math.floor(Date.now() / 1000);
+        if (current <= exp) {
+            res = result.data || res;
+        }
+    }
+    catch (e) {
+    }
+    return res;
+}
+exports.verifyToken = verifyToken;

@@ -14,3 +14,21 @@ export function generateToken(data: object){
     console.log(token);
     return token;
 }
+
+export function verifyToken(token: string){
+    interface Result{
+        uid: string
+    }
+    let cert = fs.readFileSync(path.join(__dirname, '../../rsa_public_key.pem')),res: Result = {uid: ''};
+    try{
+        let result = jwt.verify(token, cert, {algorithms: ['RS256']}) || {};
+        let {exp = 0} = result,current = Math.floor(Date.now()/1000);
+        if(current <= exp){
+            res = result.data || res;
+        }
+    }catch(e){
+    
+    }
+    return res;
+    
+}
