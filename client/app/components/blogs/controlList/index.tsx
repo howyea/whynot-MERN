@@ -2,7 +2,7 @@
  * @Author: Micheal.Ye 
  * @Date: 2018-09-12 09:38:44 
  * @Last Modified by: Micheal.Ye
- * @Last Modified time: 2018-09-12 10:40:30
+ * @Last Modified time: 2018-11-02 14:54:48
  */
 import * as React from 'react';
 import { 
@@ -46,7 +46,7 @@ class ControlList extends React.Component<Props, State> {
         return ( 
             <List className="md-cell md-paper md-paper--1">
                 <ListItem
-                primaryText={ title }
+                primaryText={ <div>{title}</div> }
                 secondaryText={ collapsed && description }
                 threeLines
                 />

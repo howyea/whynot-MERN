@@ -2,19 +2,14 @@
  * @Author: Micheal.Ye 
  * @Date: 2018-09-11 17:45:34 
  * @Last Modified by: Micheal.Ye
- * @Last Modified time: 2018-10-12 16:00:49
+ * @Last Modified time: 2018-11-02 14:45:10
  */
 import * as React from 'react';
 import { getList, word2voice } from "../../interface";
 // import '../../static/highlight.css';
 import ControlList from "./controlList";
 import { Collapse } from 'react-md';
-  const style = { 
-      marginBottom: '0.2rem'
-   };
-
-
-  
+import { BlogBox } from "./styled";
    interface ListKey {
     title: string,
     description: string,
@@ -48,11 +43,11 @@ class Blogs extends React.Component<Props> {
         return <ControlList key={ index } value={ value }></ControlList>
     }
     render() {
-        return <div>
+        return <BlogBox>
         {
             this.state.contents.map(this.loadList)
         }
-        </div>
+        </BlogBox>
     }
 }
 
