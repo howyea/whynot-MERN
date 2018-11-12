@@ -5,12 +5,14 @@ import * as ReactDOM from "react-dom";
 import {BrowserRouter as Router, Redirect, Switch, Route} from 'react-router-dom';
 import App from './components/App';
 import Ad from "./components/ad";
+import Login from "./components/login";
 
 
 ReactDOM.render(
         <Router>
             <Switch>
                 <Route path="/app" component={App} />
+                <Route path="/login" component={Login} />
                 <Route exact path="/" component={Ad}/>
             </Switch>
         </Router>,

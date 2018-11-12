@@ -2,13 +2,13 @@
  * @Author: Micheal.Ye 
  * @Date: 2018-03-09 14:10:51 
  * @Last Modified by: Micheal.Ye
- * @Last Modified time: 2018-10-12 16:32:45
+ * @Last Modified time: 2018-11-12 17:01:10
  */
 import * as React from 'react'
 import { Route } from 'react-router-dom';
 import { BottomNavigation, FontIcon } from 'react-md';
 import Blogs from "./blogs";
-import Login from "./login";
+import UserCenter from "./userCenter";
 import { Header, MyIcons, Content } from "./styled";
 
 const links = [{
@@ -44,7 +44,7 @@ class App extends React.Component<AppProps, AppState> {
                 this.props.history.push('/app')
                 break;
             default:
-                this.props.history.push('/app/login')
+                this.props.history.push('/app/userCenter')
         }
     };
     render() {
@@ -55,7 +55,7 @@ class App extends React.Component<AppProps, AppState> {
                 </Header>
                 {/* <Content> */}
                     <Route exact path="/app" component={Blogs} />
-                    <Route path="/app/login" component={Login} />
+                    <Route path="/app/userCenter" component={UserCenter} />
                 {/* </Content> */}
                 <BottomNavigation links={links} dynamic={true}  onNavChange={this.handleNavChange}/>
             </div>
