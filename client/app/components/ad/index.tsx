@@ -2,7 +2,7 @@
  * @Author: Micheal.Ye 
  * @Date: 2018-09-06 09:41:39 
  * @Last Modified by: Micheal.Ye
- * @Last Modified time: 2018-10-15 16:27:06
+ * @Last Modified time: 2018-11-16 17:32:28
  */
 import * as React from 'react';
 import { MyIcons } from "../styled";
@@ -27,9 +27,9 @@ class Ad extends React.Component<AdProps, {}> {
             } else {
                 const _token = localStorage.getItem('token');
                 if ( _token ) {
-                    this.props.history.push('/app');
+                    this.props.history.push('/main');
                 } else {
-                    this.props.history.push('/app/login');
+                    this.props.history.push('/main/login');
                 }
             }
         }

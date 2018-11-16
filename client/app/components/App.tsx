@@ -2,14 +2,13 @@
  * @Author: Micheal.Ye 
  * @Date: 2018-03-09 14:10:51 
  * @Last Modified by: Micheal.Ye
- * @Last Modified time: 2018-11-12 17:01:10
+ * @Last Modified time: 2018-11-16 17:36:02
  */
 import * as React from 'react'
 import { Route } from 'react-router-dom';
 import { BottomNavigation, FontIcon } from 'react-md';
 import Blogs from "./blogs";
 import UserCenter from "./userCenter";
-import { Header, MyIcons, Content } from "./styled";
 
 const links = [{
     label: '首页',
@@ -38,25 +37,20 @@ class App extends React.Component<AppProps, AppState> {
     handleNavChange = (activeIndex) => {
         switch (activeIndex) {
             case 0:
-                this.props.history.push('/app')
+                this.props.history.push('/main/app')
                 break;
             case 1:
-                this.props.history.push('/app')
+                this.props.history.push('/main/app')
                 break;
             default:
-                this.props.history.push('/app/userCenter')
+                this.props.history.push('/main/app/userCenter')
         }
     };
     render() {
         return (
             <div>
-                <Header>
-                    <MyIcons width="1" url={require('../images/logo.png')}></MyIcons>
-                </Header>
-                {/* <Content> */}
-                    <Route exact path="/app" component={Blogs} />
-                    <Route path="/app/userCenter" component={UserCenter} />
-                {/* </Content> */}
+                    <Route exact path="/main/app" component={Blogs} />
+                    <Route path="/main/app/userCenter" component={UserCenter} />
                 <BottomNavigation links={links} dynamic={true}  onNavChange={this.handleNavChange}/>
             </div>
         )

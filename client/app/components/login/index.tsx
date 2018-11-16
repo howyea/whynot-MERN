@@ -55,7 +55,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                     });
                     if ( result.code === 0 ) {
                         localStorage.setItem('token', result.userInfo.token );
-                        this.props.history.push('/app');
+                        this.props.history.push('/main/app');
                     }
                 }}>登录</Button>
             </div>
