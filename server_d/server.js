@@ -52,6 +52,11 @@ else {
     app.use(express.static('dist'));
     //   app.use(express.static(path.resolve(__dirname, '../dist')));
     app.get('*', function (req, res) {
+        res.writeHead(200, {
+            'Content-Type': 'text/event-stream',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive'
+        });
         res.sendFile(path.resolve(__dirname, '../dist/index.html'));
         res.end();
     });
