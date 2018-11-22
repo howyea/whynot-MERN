@@ -12,6 +12,7 @@
     "scripts": {
         "prod": "cross-env NODE_ENV=production node server",
         "prod-server": "NODE_ENV=production forever start server_d/server.js",
+        "stop-server": "forever stop server_d/server.js",
         "build": "webpack -p --progress --profile --colors",
         "dev": "node server"
     },
