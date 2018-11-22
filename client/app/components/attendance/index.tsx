@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
+import { Toast } from "antd-mobile";
 import { AttendanceStyled } from "./styled";
 import { MyIcons } from "../styled";
 import { login, signIn } from "./interface";
@@ -17,14 +18,13 @@ class Attendance extends React.Component<AttendanceProps, AttendanceState> {
     }
     signInFunc = async () => {
         const _res = await signIn(this.signInParams);
-        if (_res.status ) {
-
-        }
+        Toast.info(_res.desc);
     }
     signInParams = {}
     loginFunc = async () => {
         const _res = await login();
         if ( _res.status ) {
+            Toast.info('登陆成功');
             const {
                 access_token,
                 hrm_uuid,
@@ -40,6 +40,8 @@ class Attendance extends React.Component<AttendanceProps, AttendanceState> {
                 uuid,
                 sign_time
             };
+        } else {
+            Toast.info(_res.desc);
         }
     }
     componentDidMount() {
