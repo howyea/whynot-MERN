@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { TextField, Button, Grid, Cell } from "react-md";
 import { login } from "../../interface";
+import { LoginStyled } from "./styled";
 
 export interface LoginProps {
     history: any
@@ -22,7 +23,7 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
     render() { 
         return ( 
-            <div>
+            <LoginStyled>
                 <TextField
                 id="text-with-close-button"
                 label="请输入账号"
@@ -36,6 +37,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                 />
                 <TextField
                 id="text-with-close-button"
+                type="password"
                 label="请输入密码"
                 className="md-cell md-cell--bottom"
                 onChange={( password: string ) => {
@@ -58,7 +60,10 @@ class Login extends React.Component<LoginProps, LoginState> {
                         this.props.history.push('/main/app');
                     }
                 }}>登录</Button>
-            </div>
+                <div className="other">
+                    <div className="forgetPassword">注册账号</div>
+                </div>
+            </LoginStyled>
          );
     }
 }

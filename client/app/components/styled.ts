@@ -48,6 +48,11 @@ export const alignCenter = css`
     align-items: center;
     flex-direction: column;
 `;
+export const justifyBetween = css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
 export const Header = styled.div`
     position: fixed;
     top: 0;
@@ -62,9 +67,6 @@ export const Header = styled.div`
     & + div {
         margin-top: 1.1rem;
     }
-`;
-export const Content = styled.div`
-    
 `;
 /**
  * 可以用在所有需要icons的地方

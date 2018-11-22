@@ -18,7 +18,7 @@ class UserCenter extends React.Component<UserCenterProps, UserCenterState> {
             <div>
                 <Button className="md-cell md-cell--bottom" flat primary swapTheming onClick={async() => {
                     localStorage.clear();
-                    this.props.history.push('/login');
+                    this.props.history.push('/main/login');
                 }}>退出登录</Button>
             </div>
          );

@@ -2,7 +2,7 @@
  * @Author: Micheal.Ye 
  * @Date: 2018-09-06 09:41:39 
  * @Last Modified by: Micheal.Ye
- * @Last Modified time: 2018-11-16 17:32:28
+ * @Last Modified time: 2018-11-22 10:40:01
  */
 import * as React from 'react';
 import { MyIcons } from "../styled";
@@ -27,7 +27,7 @@ class Ad extends React.Component<AdProps, {}> {
             } else {
                 const _token = localStorage.getItem('token');
                 if ( _token ) {
-                    this.props.history.push('/main');
+                    this.props.history.push('/main/app');
                 } else {
                     this.props.history.push('/main/login');
                 }
@@ -41,7 +41,7 @@ class Ad extends React.Component<AdProps, {}> {
     render() {
         return <AdStyled>
             <div className="skip" onClick={() => {
-                this.props.history.push('/app');
+                this.props.history.push('/main/app');
             }}><span>{ this.state.count }</span><span>跳过</span></div>
             <MyIcons className="logo" width="4" url={require('../../images/logo.png')} bgc="#1c388c"></MyIcons>
             <h5>do what you want</h5>

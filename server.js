@@ -13,7 +13,7 @@ nodemon({
 .on('restart', function() {
   console.log('Server restarted!');
 })
-/* .once('exit', function () {
+.once('exit', function () {
   console.log('Shutting down server');
   process.exit();
-}); */
+});
