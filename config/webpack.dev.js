@@ -18,7 +18,9 @@ module.exports = merge(commonConfig, {
     filename: 'js/[name].js',
     chunkFilename: '[id].chunk.js'
   },
-
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
 //   devServer: {
 //     contentBase: '../client/public',
 //     historyApiFallback: true,

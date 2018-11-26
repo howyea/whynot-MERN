@@ -24,6 +24,7 @@ class Attendance extends React.Component<AttendanceProps, AttendanceState> {
     loginFunc = async () => {
         const _res = await login();
         if ( _res.status ) {
+            console.log("asfasgadgadg")
             Toast.info('登陆成功');
             const {
                 access_token,

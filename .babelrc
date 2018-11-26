@@ -10,11 +10,25 @@
     "env"
   ],
   "plugins": [
+    "transform-runtime",
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    [
+        "react-css-modules",
+        {
+        "generateScopedName": "[name]_[local]",
+        "filetypes": {
+            ".scss": {
+            "syntax": "postcss-scss"
+            }
+        }
+        }
+    ],
     [
         "import",
         {
           "libraryName": "antd-mobile",
-          "style": true
+          "style": "css"
         }
     ]
   ]
