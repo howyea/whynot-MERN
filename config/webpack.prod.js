@@ -3,6 +3,7 @@ const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const helpers = require('./helpers');
 const commonConfig = require('./webpack.common');
+const WebpackBundleSizeAnalyzerPlugin = require('webpack-bundle-size-analyzer').WebpackBundleSizeAnalyzerPlugin;
 
 module.exports = merge(commonConfig, {
   mode: 'production',
@@ -25,15 +26,7 @@ module.exports = merge(commonConfig, {
       }),
     ]
   },
-  /* plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false,
-        screw_ie8: true
-      },
-      output: {
-        comments: false
-      }
-    })
-  ] */
+  plugins: [
+    new WebpackBundleSizeAnalyzerPlugin('./plain-report.txt')
+  ]
 });

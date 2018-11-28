@@ -80,30 +80,6 @@ module.exports = {
                 loader: 'style-loader!css-loader!postcss-loader?modules'
             },
             
-            /* {
-                test: /\.scss$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                'sourceMap': true,
-                                'importLoaders': 1
-                            }
-                        },
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                plugins: () => [
-                                    autoprefixer
-                                ]
-                            }
-                        },
-                        'sass-loader'
-                    ]
-                })
-            }, */
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 include: /client/,
@@ -124,10 +100,13 @@ module.exports = {
             }
         ]
     },
-    //   externals: {
-    //     "react": "React",
-    //     "react-dom": "ReactDOM"
-    // },
+    externals: {
+        'react':'react',
+        'react-dom':"react-dom",
+        'react-router':'react-dom',
+        'moment':'moment',
+        "antd-mobile":"antd-mobile"
+    },
     plugins: [
 
         new webpack.DefinePlugin({

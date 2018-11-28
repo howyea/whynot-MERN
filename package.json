@@ -13,7 +13,7 @@
         "prod": "cross-env NODE_ENV=production node server",
         "prod-server": "NODE_ENV=production forever start server_d/server.js",
         "stop-server": "forever stop server_d/server.js",
-        "build": "webpack -p --progress --profile --colors",
+        "build": "NODE_ENV=production webpack --config webpack.config.js",
         "dev": "node server"
     },
     "engines": {
@@ -83,6 +83,7 @@
         "uglifyjs-webpack-plugin": "^2.0.1",
         "url-loader": "^1.1.1",
         "webpack": "^4.2.0",
+        "webpack-bundle-size-analyzer": "^3.0.0",
         "webpack-cli": "^2.0.13",
         "webpack-dev-middleware": "^3.0.1",
         "webpack-hot-middleware": "^2.21.2",
