@@ -100,13 +100,13 @@ module.exports = {
             }
         ]
     },
-    externals: {
+    /* externals: {
         'react':'react',
         'react-dom':"react-dom",
         'react-router':'react-dom',
         'moment':'moment',
         "antd-mobile":"antd-mobile"
-    },
+    }, */
     plugins: [
 
         new webpack.DefinePlugin({
@@ -116,12 +116,26 @@ module.exports = {
         }),
 
         new HtmlWebpackPlugin({
+            filename: 'index.html',
             template: helpers.root('client/public/index.html'),
-            inject: 'body'
+            inject: true,
+            hash: true,
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeRedundantAttributes: true,
+                useShortDoctype: true,
+                removeEmptyAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                keepClosingSlash: true,
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true,
+            },
         }),
 
         new ExtractTextPlugin({
-            filename: 'css/[name].[hash].css',
+            filename: 'css/[name].css',
             disable: !isProd
         }),
 

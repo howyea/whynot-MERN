@@ -9,7 +9,7 @@ module.exports = merge(commonConfig, {
   mode: 'production',
 
   output: {
-    filename: 'js/[name].[hash].js',
+    filename: 'js/[name].js',
     chunkFilename: '[id].[hash].chunk.js'
   },
   optimization: {
