@@ -11,7 +11,7 @@
     "private": true,
     "scripts": {
         "prod": "cross-env NODE_ENV=production node server",
-        "prod-server": "NODE_ENV=production forever start --minUptime 1000 --spinSleepTime 1000 server_d/server.js",
+        "prod-server": "NODE_ENV=production forever start --minUptime 1000 --spinSleepTime 1000 -a -l forever.log -o out.log -e server_d/server.js",
         "stop-server": "forever stop server_d/server.js",
         "build": "NODE_ENV=production webpack --config webpack.config.js",
         "dev": "node server"
