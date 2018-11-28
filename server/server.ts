@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 // require('./routes')(app);
 app.use('/', main);
 
-if (isDev) {
+/* if (isDev) {
   const compiler = webpack(webpackConfig);
   
   app.use(historyApiFallback({
@@ -68,7 +68,17 @@ if (isDev) {
     res.sendFile(path.resolve(__dirname, '../dist/index.html'));
     res.end();
   });
-}
+} */
+app.use(express.static('dist'));
+app.get('*', function (req, res) {
+    res.writeHead(200, {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive'
+    });
+    res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+    res.end();
+});
 mongoose.connect('mongodb://120.79.165.210:27017/blog',  { useNewUrlParser: true }, function ( err) {
     if ( err ) {
         console.log('数据库连接失败')

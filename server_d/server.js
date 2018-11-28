@@ -1,15 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
-var historyApiFallback = require("connect-history-api-fallback");
 var mongoose = require("mongoose");
 var path = require("path");
-var webpack = require("webpack");
 var bodyParser = require("body-parser");
-var webpackDevMiddleware = require("webpack-dev-middleware");
-var webpackHotMiddleware = require("webpack-hot-middleware");
-// import config from '../config/config';
-var webpackConfig = require("../webpack.config");
 var main_1 = require("./routers/main");
 var isDev = process.env.NODE_ENV !== 'production';
 var port = process.env.PORT || 8086;
@@ -26,41 +20,53 @@ app.use(bodyParser.json());
 // API routes
 // require('./routes')(app);
 app.use('/', main_1.default);
-if (isDev) {
-    var compiler = webpack(webpackConfig);
-    app.use(historyApiFallback({
-        verbose: false
+/* if (isDev) {
+  const compiler = webpack(webpackConfig);
+  
+  app.use(historyApiFallback({
+      verbose: false
     }));
+    
     app.use(webpackDevMiddleware(compiler, {
         publicPath: webpackConfig.output.publicPath,
         contentBase: path.resolve(__dirname, '../../client/public'),
         stats: {
             colors: true,
             hash: false,
-            timings: true,
-            chunks: false,
-            chunkModules: false,
-            modules: false
-        }
-    }));
-    console.log("来这里");
-    app.use(webpackHotMiddleware(compiler));
-    app.use(express.static(path.resolve(__dirname, '../dist')));
-}
-else {
-    console.log("来这里22222");
-    app.use(express.static('dist'));
-    //   app.use(express.static(path.resolve(__dirname, '../dist')));
-    app.get('*', function (req, res) {
-        res.writeHead(200, {
-            'Content-Type': 'text/event-stream',
-            'Cache-Control': 'no-cache',
-            'Connection': 'keep-alive'
-        });
-        res.sendFile(path.resolve(__dirname, '../dist/index.html'));
-        res.end();
+      timings: true,
+      chunks: false,
+      chunkModules: false,
+      modules: false
+    }
+  }));
+  console.log("来这里");
+  app.use(webpackHotMiddleware(compiler));
+  app.use(express.static(path.resolve(__dirname, '../dist')));
+} else {
+  console.log("来这里22222");
+
+  app.use(express.static('dist'));
+//   app.use(express.static(path.resolve(__dirname, '../dist')));
+  app.get('*', function (req, res) {
+    res.writeHead(200, {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive'
     });
-}
+    res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+    res.end();
+  });
+} */
+app.use(express.static('dist'));
+app.get('*', function (req, res) {
+    res.writeHead(200, {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive'
+    });
+    res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+    res.end();
+});
 mongoose.connect('mongodb://120.79.165.210:27017/blog', { useNewUrlParser: true }, function (err) {
     if (err) {
         console.log('数据库连接失败');
