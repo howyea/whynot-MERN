@@ -11,7 +11,7 @@
     "private": true,
     "scripts": {
         "prod": "cross-env NODE_ENV=production node server",
-        "prod-server": "NODE_ENV=production forever start -a -l forever.log -o out.log -e err.log server_d/server.js",
+        "prod-server": "set NODE_ENV=production && forever start -a -l forever.log -o out.log -e err.log server_d/server.js",
         "prod-server-test": "forever start -a -l forever.log -o out.log -e err.log server_d/server.js",
         "stop-server": "forever stop server_d/server.js",
         "build": "NODE_ENV=production webpack --config webpack.config.js",
