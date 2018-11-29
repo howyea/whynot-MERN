@@ -18,7 +18,7 @@
     "noImplicitThis": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false
   },
