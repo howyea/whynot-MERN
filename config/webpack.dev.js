@@ -20,8 +20,8 @@ module.exports = merge(commonConfig, {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()
-  ],
-  devServer: {
+  ]
+  /* devServer: {
     contentBase: '../client/public',
     historyApiFallback: true,
     stats: 'minimal', // none (or false), errors-only, minimal, normal (or true) and verbose
@@ -37,5 +37,5 @@ module.exports = merge(commonConfig, {
             secure: false,
         }
     },  
-}
+} */
 });
