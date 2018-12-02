@@ -61,7 +61,7 @@ class Routers {
     private weChat () : void {
         this.router.get('/handshake', (req, res, next) => {
             const { echostr } = req.query;
-            return echostr;
+            res.send( echostr );
         });
     }
     private blogRouters () : void {

@@ -48,7 +48,7 @@ var Routers = /** @class */ (function () {
     Routers.prototype.weChat = function () {
         this.router.get('/handshake', function (req, res, next) {
             var echostr = req.query.echostr;
-            return echostr;
+            res.send(echostr);
         });
     };
     Routers.prototype.blogRouters = function () {
