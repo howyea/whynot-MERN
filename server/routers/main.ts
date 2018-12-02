@@ -45,6 +45,7 @@ class Routers {
             categories: []
         };
         this.useModals();
+        this.weChat();
         this.blogRouters();
     }
     private useModals () : void {
@@ -55,6 +56,11 @@ class Routers {
         });
         User.find().then((users) => {
             console.log(users);
+        });
+    }
+    private weChat () : void {
+        this.router.get('/handshake', (req, res, next) => {
+            console.log(req);
         });
     }
     private blogRouters () : void {

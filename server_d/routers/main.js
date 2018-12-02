@@ -32,6 +32,7 @@ var Routers = /** @class */ (function () {
             categories: []
         };
         this.useModals();
+        this.weChat();
         this.blogRouters();
     }
     Routers.prototype.useModals = function () {
@@ -42,6 +43,11 @@ var Routers = /** @class */ (function () {
         });
         User_1.default.find().then(function (users) {
             console.log(users);
+        });
+    };
+    Routers.prototype.weChat = function () {
+        this.router.get('/handshake', function (req, res, next) {
+            console.log(req);
         });
     };
     Routers.prototype.blogRouters = function () {
