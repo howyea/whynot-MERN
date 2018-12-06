@@ -3,6 +3,8 @@ async function login () {
     const {body} = await request.get('https://hrmapi.que360.com/Api/Permission/getAdminPermissionNew', {
         username: '13570264649',
         password: 'yehuiyu152+',
+        // username: '18948319410',
+        // password: 'w123456',
         client_secret: 'ITEHvFFJtiNrmEY3lcDeyMadgFuNGEpD',
         client_id: '100012'
     });

@@ -5,6 +5,7 @@
 import * as express from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as superagent from 'superagent';
 // import * as xunfeisdk from 'xunfeisdk';
 // import { IATAueType, IATEngineType, ISEAueType, ISECategoryType, ISELanguageType, ISEResultLevelType, TTSAueType, TTSAufType, TTSEngineType, TTSVoiceName } from "xunfeisdk";
 import Category from "../models/Category";
@@ -63,6 +64,14 @@ class Routers {
             const { echostr } = req.query;
             res.send( echostr );
         });
+        this.router.get('/loginQR', async (req, res, next) => {
+            const { body} = await superagent.get('https://api.weixin.qq.com/cgi-bin/token', {
+                grant_type: 'client_credential',
+                appid: 'wx4a52d2d162fcf80d',
+                secret: 'b0b03bfe2d13306217ca36f29d47ec25'
+            });
+            console.log("这个是token"+body)
+        })
     }
     private blogRouters () : void {
         this.router.get('/api/list', (req, res, next) => {
