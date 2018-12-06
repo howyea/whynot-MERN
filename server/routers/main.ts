@@ -69,7 +69,7 @@ class Routers {
                 appid: 'wx4a52d2d162fcf80d',
                 secret: 'b0b03bfe2d13306217ca36f29d47ec25'
             });
-            console.log("这个是token"+body)
+            console.log("这个是token"+JSON.stringify(body))
         })
     }
     private blogRouters () : void {

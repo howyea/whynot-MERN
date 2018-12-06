@@ -98,7 +98,7 @@ var Routers = /** @class */ (function () {
                             })];
                     case 1:
                         body = (_a.sent()).body;
-                        console.log("这个是token" + body);
+                        console.log("这个是token" + JSON.stringify(body));
                         return [2 /*return*/];
                 }
             });
