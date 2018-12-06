@@ -11,6 +11,7 @@ import * as superagent from 'superagent';
 import Category from "../models/Category";
 import Content from "../models/Content";
 import User from '../models/User';
+import WechatToken from '../models/WechatToken';
 import { generateToken, verifyToken } from '../utils';
 interface Data{
     category: string,
@@ -62,14 +63,26 @@ class Routers {
             const { echostr } = req.query;
             res.send( echostr );
         });
-        this.router.get('/loginQR', async (req, res, next) => {
-            console.log("不知道来到这里了没")
-            const { body} = await superagent.get('https://api.weixin.qq.com/cgi-bin/token', {
-                grant_type: 'client_credential',
-                appid: 'wx4a52d2d162fcf80d',
-                secret: 'b0b03bfe2d13306217ca36f29d47ec25'
+        this.router.get('/weChatToken', (req, res, next) => {
+            WechatToken.find().then( async function (obj) {
+                if ( obj ) {
+                    console.log("这个是数据库中的token"+JSON.stringify(obj));
+                } else {
+                    const { body} = await superagent.get('https://api.weixin.qq.com/cgi-bin/token', {
+                        grant_type: 'client_credential',
+                        appid: 'wx4a52d2d162fcf80d',
+                        secret: 'b0b03bfe2d13306217ca36f29d47ec25'
+                    });
+                    console.log("这个是token"+JSON.stringify(body))
+                    var wechatToken = new WechatToken({
+                        access_token: body.access_token,
+                        expires_in: body.expires_in
+                    });
+                    return wechatToken.save();
+                }
+            }).then(function(newToken) {
+                res.json({newToken});
             });
-            console.log("这个是token"+JSON.stringify(body))
         })
     }
     private blogRouters () : void {

@@ -45,6 +45,7 @@ var superagent = require("superagent");
 var Category_1 = require("../models/Category");
 var Content_1 = require("../models/Content");
 var User_1 = require("../models/User");
+var WechatToken_1 = require("../models/WechatToken");
 var utils_1 = require("../utils");
 // const data:Data = {
 //     category: '',
@@ -80,29 +81,41 @@ var Routers = /** @class */ (function () {
         });
     };
     Routers.prototype.weChat = function () {
-        var _this_1 = this;
         this.router.get('/handshake', function (req, res, next) {
             var echostr = req.query.echostr;
             res.send(echostr);
         });
-        this.router.get('/loginQR', function (req, res, next) { return __awaiter(_this_1, void 0, void 0, function () {
-            var body;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        console.log("不知道来到这里了没");
-                        return [4 /*yield*/, superagent.get('https://api.weixin.qq.com/cgi-bin/token', {
-                                grant_type: 'client_credential',
-                                appid: 'wx4a52d2d162fcf80d',
-                                secret: 'b0b03bfe2d13306217ca36f29d47ec25'
-                            })];
-                    case 1:
-                        body = (_a.sent()).body;
-                        console.log("这个是token" + JSON.stringify(body));
-                        return [2 /*return*/];
-                }
+        this.router.get('/weChatToken', function (req, res, next) {
+            WechatToken_1.default.find().then(function (obj) {
+                return __awaiter(this, void 0, void 0, function () {
+                    var body, wechatToken;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                if (!obj) return [3 /*break*/, 1];
+                                console.log("这个是数据库中的token" + JSON.stringify(obj));
+                                return [3 /*break*/, 3];
+                            case 1: return [4 /*yield*/, superagent.get('https://api.weixin.qq.com/cgi-bin/token', {
+                                    grant_type: 'client_credential',
+                                    appid: 'wx4a52d2d162fcf80d',
+                                    secret: 'b0b03bfe2d13306217ca36f29d47ec25'
+                                })];
+                            case 2:
+                                body = (_a.sent()).body;
+                                console.log("这个是token" + JSON.stringify(body));
+                                wechatToken = new WechatToken_1.default({
+                                    access_token: body.access_token,
+                                    expires_in: body.expires_in
+                                });
+                                return [2 /*return*/, wechatToken.save()];
+                            case 3: return [2 /*return*/];
+                        }
+                    });
+                });
+            }).then(function (newToken) {
+                res.json({ newToken: newToken });
             });
-        }); });
+        });
     };
     Routers.prototype.blogRouters = function () {
         var _this_1 = this;
