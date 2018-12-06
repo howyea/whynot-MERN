@@ -86,14 +86,14 @@ var Routers = /** @class */ (function () {
             res.send(echostr);
         });
         this.router.get('/weChatToken', function (req, res, next) {
-            WechatToken_1.default.find().then(function (obj) {
+            WechatToken_1.default.find().then(function (Arr) {
                 return __awaiter(this, void 0, void 0, function () {
                     var body, wechatToken;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                if (!obj) return [3 /*break*/, 1];
-                                console.log("这个是数据库中的token" + JSON.stringify(obj));
+                                if (!Arr.length) return [3 /*break*/, 1];
+                                console.log("这个是数据库中的token" + Arr);
                                 return [3 /*break*/, 3];
                             case 1: return [4 /*yield*/, superagent.get('https://api.weixin.qq.com/cgi-bin/token', {
                                     grant_type: 'client_credential',

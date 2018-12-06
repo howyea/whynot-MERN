@@ -64,9 +64,9 @@ class Routers {
             res.send( echostr );
         });
         this.router.get('/weChatToken', (req, res, next) => {
-            WechatToken.find().then( async function (obj) {
-                if ( obj ) {
-                    console.log("这个是数据库中的token"+JSON.stringify(obj));
+            WechatToken.find().then( async function (Arr) {
+                if ( Arr.length ) {
+                    console.log("这个是数据库中的token"+Arr);
                 } else {
                     const { body} = await superagent.get('https://api.weixin.qq.com/cgi-bin/token', {
                         grant_type: 'client_credential',
