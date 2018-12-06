@@ -52,11 +52,9 @@ class Routers {
     private useModals () : void {
         const _this = this;
         Category.find().then((categories) => {
-            console.log(categories);
             _this.data.categories = categories;
         });
         User.find().then((users) => {
-            console.log(users);
         });
     }
     private weChat () : void {
@@ -65,6 +63,7 @@ class Routers {
             res.send( echostr );
         });
         this.router.get('/loginQR', async (req, res, next) => {
+            console.log("不知道来到这里了没")
             const { body} = await superagent.get('https://api.weixin.qq.com/cgi-bin/token', {
                 grant_type: 'client_credential',
                 appid: 'wx4a52d2d162fcf80d',

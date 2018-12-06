@@ -74,11 +74,9 @@ var Routers = /** @class */ (function () {
     Routers.prototype.useModals = function () {
         var _this = this;
         Category_1.default.find().then(function (categories) {
-            console.log(categories);
             _this.data.categories = categories;
         });
         User_1.default.find().then(function (users) {
-            console.log(users);
         });
     };
     Routers.prototype.weChat = function () {
@@ -91,11 +89,13 @@ var Routers = /** @class */ (function () {
             var body;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, superagent.get('https://api.weixin.qq.com/cgi-bin/token', {
-                            grant_type: 'client_credential',
-                            appid: 'wx4a52d2d162fcf80d',
-                            secret: 'b0b03bfe2d13306217ca36f29d47ec25'
-                        })];
+                    case 0:
+                        console.log("不知道来到这里了没");
+                        return [4 /*yield*/, superagent.get('https://api.weixin.qq.com/cgi-bin/token', {
+                                grant_type: 'client_credential',
+                                appid: 'wx4a52d2d162fcf80d',
+                                secret: 'b0b03bfe2d13306217ca36f29d47ec25'
+                            })];
                     case 1:
                         body = (_a.sent()).body;
                         console.log("这个是token" + body);
