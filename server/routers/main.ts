@@ -64,19 +64,39 @@ class Routers {
             res.send( echostr );
         });
         this.router.get('/weChatToken', (req, res, next) => {
+            async function saveWeChatTokenApi () {
+                const { body } = await superagent.get('https://api.weixin.qq.com/cgi-bin/token', {
+                    grant_type: 'client_credential',
+                    appid: 'wx4a52d2d162fcf80d',
+                    secret: 'b0b03bfe2d13306217ca36f29d47ec25'
+                });
+                console.log("这个是token"+JSON.stringify(body))
+                return body;
+            }
             WechatToken.find().then( async function (Arr) {
                 if ( Arr.length ) {
                     console.log("这个是数据库中的token"+Arr);
+                    if ( Arr[0].expires_in < new Date().getTime()) {
+                        const result = await saveWeChatTokenApi();
+                        const access_token = result.access_token;
+                        const expires_in = new Date().getTime() + result.expires_in*1000;
+                        WechatToken.update({_id: Arr[0]._id}, {
+                            access_token,
+                            expires_in
+                        }, {multi: true}, function(err, docs){
+                            if(err) console.log(err);
+                            console.log('更改成功：' + docs);
+                            return result;
+                        })
+                    }
+                    return Arr;
                 } else {
-                    const { body} = await superagent.get('https://api.weixin.qq.com/cgi-bin/token', {
-                        grant_type: 'client_credential',
-                        appid: 'wx4a52d2d162fcf80d',
-                        secret: 'b0b03bfe2d13306217ca36f29d47ec25'
-                    });
-                    console.log("这个是token"+JSON.stringify(body))
+                    const result = await saveWeChatTokenApi();
+                    const access_token = result.access_token;
+                    const expires_in = new Date().getTime() + result.expires_in*1000
                     var wechatToken = new WechatToken({
-                        access_token: body.access_token,
-                        expires_in: body.expires_in
+                        access_token,
+                        expires_in
                     });
                     return wechatToken.save();
                 }

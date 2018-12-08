@@ -86,29 +86,59 @@ var Routers = /** @class */ (function () {
             res.send(echostr);
         });
         this.router.get('/weChatToken', function (req, res, next) {
-            WechatToken_1.default.find().then(function (Arr) {
+            function saveWeChatTokenApi() {
                 return __awaiter(this, void 0, void 0, function () {
-                    var body, wechatToken;
+                    var body;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
-                            case 0:
-                                if (!Arr.length) return [3 /*break*/, 1];
-                                console.log("这个是数据库中的token" + Arr);
-                                return [3 /*break*/, 3];
-                            case 1: return [4 /*yield*/, superagent.get('https://api.weixin.qq.com/cgi-bin/token', {
+                            case 0: return [4 /*yield*/, superagent.get('https://api.weixin.qq.com/cgi-bin/token', {
                                     grant_type: 'client_credential',
                                     appid: 'wx4a52d2d162fcf80d',
                                     secret: 'b0b03bfe2d13306217ca36f29d47ec25'
                                 })];
-                            case 2:
+                            case 1:
                                 body = (_a.sent()).body;
                                 console.log("这个是token" + JSON.stringify(body));
+                                return [2 /*return*/, body];
+                        }
+                    });
+                });
+            }
+            WechatToken_1.default.find().then(function (Arr) {
+                return __awaiter(this, void 0, void 0, function () {
+                    var result_1, access_token, expires_in, result, access_token, expires_in, wechatToken;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                if (!Arr.length) return [3 /*break*/, 3];
+                                console.log("这个是数据库中的token" + Arr);
+                                if (!(Arr[0].expires_in < new Date().getTime())) return [3 /*break*/, 2];
+                                return [4 /*yield*/, saveWeChatTokenApi()];
+                            case 1:
+                                result_1 = _a.sent();
+                                access_token = result_1.access_token;
+                                expires_in = new Date().getTime() + result_1.expires_in * 1000;
+                                WechatToken_1.default.update({ _id: Arr[0]._id }, {
+                                    access_token: access_token,
+                                    expires_in: expires_in
+                                }, { multi: true }, function (err, docs) {
+                                    if (err)
+                                        console.log(err);
+                                    console.log('更改成功：' + docs);
+                                    return result_1;
+                                });
+                                _a.label = 2;
+                            case 2: return [2 /*return*/, Arr];
+                            case 3: return [4 /*yield*/, saveWeChatTokenApi()];
+                            case 4:
+                                result = _a.sent();
+                                access_token = result.access_token;
+                                expires_in = new Date().getTime() + result.expires_in * 1000;
                                 wechatToken = new WechatToken_1.default({
-                                    access_token: body.access_token,
-                                    expires_in: body.expires_in
+                                    access_token: access_token,
+                                    expires_in: expires_in
                                 });
                                 return [2 /*return*/, wechatToken.save()];
-                            case 3: return [2 /*return*/];
                         }
                     });
                 });
