@@ -148,16 +148,16 @@ var Routers = /** @class */ (function () {
             });
         });
         this.router.post('/wechatTicket', function (req, res, next) { return __awaiter(_this_1, void 0, void 0, function () {
-            var _token;
+            var body;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log('进来了吗');
                         return [4 /*yield*/, superagent.get('http://wonder.codemojos.com/weChatToken')];
                     case 1:
-                        _token = _a.sent();
-                        console.log('这个是获取过来的token    ' + _token);
-                        res.json({ _token: _token });
+                        body = (_a.sent()).body;
+                        console.log('这个是获取过来的token    ' + body);
+                        res.json({ body: body });
                         return [2 /*return*/];
                 }
             });
