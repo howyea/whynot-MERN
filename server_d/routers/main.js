@@ -148,16 +148,25 @@ var Routers = /** @class */ (function () {
             });
         });
         this.router.post('/wechatTicket', function (req, res, next) { return __awaiter(_this_1, void 0, void 0, function () {
-            var body;
+            var body, _token, _result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        console.log('进来了吗');
-                        return [4 /*yield*/, superagent.get('http://wonder.codemojos.com/weChatToken')];
+                    case 0: return [4 /*yield*/, superagent.get('http://wonder.codemojos.com/weChatToken')];
                     case 1:
                         body = (_a.sent()).body;
-                        console.log('这个是获取过来的token    ' + body);
-                        res.json({ body: body });
+                        _token = body.newToken[0].access_token;
+                        return [4 /*yield*/, superagent.post("https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + _token, {
+                                expire_seconds: '604800',
+                                action_name: 'QR_SCENE',
+                                action_info: {
+                                    scene: {
+                                        scene_id: 123
+                                    }
+                                }
+                            })];
+                    case 2:
+                        _result = _a.sent();
+                        res.json({ result: _result.body });
                         return [2 /*return*/];
                 }
             });

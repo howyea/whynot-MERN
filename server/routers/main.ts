@@ -105,11 +105,18 @@ class Routers {
             });
         })
         this.router.post('/wechatTicket', async (req, res, next) => {
-            console.log('进来了吗')
-            const {body} = await superagent.get('http://wonder.codemojos.com/weChatToken');
-            console.log('这个是获取过来的token    '+body);
-            res.json({body});
-            // superagent.post('https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=TOKEN')
+            const { body } = await superagent.get('http://wonder.codemojos.com/weChatToken');
+            const _token = body.newToken[0].access_token;
+           const _result = await superagent.post(`https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=${ _token }`, {
+                expire_seconds: '604800',
+                action_name: 'QR_SCENE',
+                action_info: {
+                    scene: {
+                        scene_id: 123
+                    }
+                }
+            })
+            res.json({result: _result.body });
         })
     }
     private blogRouters () : void {
