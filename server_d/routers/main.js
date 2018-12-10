@@ -147,7 +147,7 @@ var Routers = /** @class */ (function () {
                 res.json({ newToken: newToken });
             });
         });
-        this.router.post('wechatTicket', function (req, res, next) { return __awaiter(_this_1, void 0, void 0, function () {
+        this.router.post('/wechatTicket', function (req, res, next) { return __awaiter(_this_1, void 0, void 0, function () {
             var _token;
             return __generator(this, function (_a) {
                 switch (_a.label) {

@@ -104,7 +104,7 @@ class Routers {
                 res.json({newToken});
             });
         })
-        this.router.post('wechatTicket', async (req, res, next) => {
+        this.router.post('/wechatTicket', async (req, res, next) => {
             console.log('进来了吗')
             const _token = await superagent.get('http://wonder.codemojos.com/weChatToken');
             console.log('这个是获取过来的token    '+_token);
