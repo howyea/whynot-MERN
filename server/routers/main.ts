@@ -85,8 +85,8 @@ class Routers {
                             expires_in
                         }, {multi: true}, function(err, docs){
                             if(err) console.log(err);
-                            console.log('更改成功：' + docs);
-                            return result;
+                            console.log('更改成功：' + JSON.stringify( docs ));
+                            return result
                         })
                     }
                     return Arr;

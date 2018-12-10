@@ -124,7 +124,7 @@ var Routers = /** @class */ (function () {
                                 }, { multi: true }, function (err, docs) {
                                     if (err)
                                         console.log(err);
-                                    console.log('更改成功：' + docs);
+                                    console.log('更改成功：' + JSON.stringify(docs));
                                     return result_1;
                                 });
                                 _a.label = 2;
