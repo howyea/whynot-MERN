@@ -104,6 +104,11 @@ class Routers {
                 res.json({newToken});
             });
         })
+        this.router.post('wechatTicket', async (req, res, next) => {
+            const _token = await superagent.get('/weChatToken');
+            console.log('这个是获取过来的token    '+_token);
+            // superagent.post('https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=TOKEN')
+        })
     }
     private blogRouters () : void {
         this.router.get('/api/list', (req, res, next) => {

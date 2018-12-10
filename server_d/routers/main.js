@@ -81,6 +81,7 @@ var Routers = /** @class */ (function () {
         });
     };
     Routers.prototype.weChat = function () {
+        var _this_1 = this;
         this.router.get('/handshake', function (req, res, next) {
             var echostr = req.query.echostr;
             res.send(echostr);
@@ -146,6 +147,18 @@ var Routers = /** @class */ (function () {
                 res.json({ newToken: newToken });
             });
         });
+        this.router.post('wechatTicket', function (req, res, next) { return __awaiter(_this_1, void 0, void 0, function () {
+            var _token;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, superagent.get('/weChatToken')];
+                    case 1:
+                        _token = _a.sent();
+                        console.log('这个是获取过来的token    ' + _token);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
     };
     Routers.prototype.blogRouters = function () {
         var _this_1 = this;
