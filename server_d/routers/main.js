@@ -151,7 +151,9 @@ var Routers = /** @class */ (function () {
             var _token;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, superagent.get('/weChatToken')];
+                    case 0:
+                        console.log('进来了吗');
+                        return [4 /*yield*/, superagent.get('http://wonder.codemojos.com/weChatToken')];
                     case 1:
                         _token = _a.sent();
                         console.log('这个是获取过来的token    ' + _token);
