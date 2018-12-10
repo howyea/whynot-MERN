@@ -108,6 +108,7 @@ class Routers {
             console.log('进来了吗')
             const _token = await superagent.get('http://wonder.codemojos.com/weChatToken');
             console.log('这个是获取过来的token    '+_token);
+            res.json({_token});
             // superagent.post('https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=TOKEN')
         })
     }

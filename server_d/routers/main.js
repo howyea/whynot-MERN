@@ -157,6 +157,7 @@ var Routers = /** @class */ (function () {
                     case 1:
                         _token = _a.sent();
                         console.log('这个是获取过来的token    ' + _token);
+                        res.json({ _token: _token });
                         return [2 /*return*/];
                 }
             });
