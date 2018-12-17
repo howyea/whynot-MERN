@@ -168,7 +168,7 @@ var Routers = /** @class */ (function () {
                                 _result = _a.sent();
                                 ticket_expires_in = new Date().getTime() + _result.expire_seconds * 1000;
                                 ticket = _result.ticket;
-                                WechatToken_1.default.update({ _id: body.newToken[0]._id }, {
+                                WechatToken_1.default.updateOne({ _id: body.newToken[0]._id }, {
                                     ticket: ticket,
                                     ticket_expires_in: ticket_expires_in
                                 }, { multi: true }, function (err, docs) {
