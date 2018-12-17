@@ -75,15 +75,15 @@ class Routers {
             }
             WechatToken.find().then( async function (Arr) {
                 if ( Arr.length ) {
-                    console.log(+Arr[0].expires_in )
+                    console.log(+Arr.expires_in )
                     console.log(new Date().getTime())
-                    console.log(+Arr[0].expires_in < new Date().getTime());
+                    console.log(+Arr.expires_in < new Date().getTime());
                     if ( +Arr[0].expires_in < new Date().getTime()) {
                         console.log("token过期了")
                         const result = await saveWeChatTokenApi();
                         const access_token = result.access_token;
                         const expires_in = new Date().getTime() + result.expires_in*1000;
-                        WechatToken.update({_id: Arr[0]._id}, {
+                        WechatToken.update({_id: Arr._id}, {
                             access_token,
                             expires_in
                         }, {multi: true}, function(err, docs){
