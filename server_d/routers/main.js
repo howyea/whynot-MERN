@@ -112,8 +112,8 @@ var Routers = /** @class */ (function () {
                         switch (_a.label) {
                             case 0:
                                 if (!Arr.length) return [3 /*break*/, 3];
-                                console.log("这个是数据库中的token" + Arr);
                                 if (!(Arr[0].expires_in < new Date().getTime())) return [3 /*break*/, 2];
+                                console.log("token过期了");
                                 return [4 /*yield*/, saveWeChatTokenApi()];
                             case 1:
                                 result_1 = _a.sent();
@@ -125,11 +125,13 @@ var Routers = /** @class */ (function () {
                                 }, { multi: true }, function (err, docs) {
                                     if (err)
                                         console.log(err);
-                                    console.log('更改成功：' + JSON.stringify(docs));
+                                    console.log('token更改成功：' + JSON.stringify(docs));
                                     return result_1;
                                 });
                                 _a.label = 2;
-                            case 2: return [2 /*return*/, Arr];
+                            case 2:
+                                console.log("这个是数据库中的token" + Arr);
+                                return [2 /*return*/, Arr];
                             case 3: return [4 /*yield*/, saveWeChatTokenApi()];
                             case 4:
                                 result = _a.sent();

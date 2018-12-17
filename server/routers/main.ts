@@ -75,8 +75,8 @@ class Routers {
             }
             WechatToken.find().then( async function (Arr) {
                 if ( Arr.length ) {
-                    console.log("这个是数据库中的token"+Arr);
                     if ( Arr[0].expires_in < new Date().getTime()) {
+                        console.log("token过期了")
                         const result = await saveWeChatTokenApi();
                         const access_token = result.access_token;
                         const expires_in = new Date().getTime() + result.expires_in*1000;
@@ -85,10 +85,11 @@ class Routers {
                             expires_in
                         }, {multi: true}, function(err, docs){
                             if(err) console.log(err);
-                            console.log('更改成功：' + JSON.stringify( docs ));
+                            console.log('token更改成功：' + JSON.stringify( docs ));
                             return result
                         })
                     }
+                    console.log("这个是数据库中的token"+Arr);
                     return Arr;
                 } else {
                     const result = await saveWeChatTokenApi();
