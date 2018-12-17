@@ -107,16 +107,12 @@ var Routers = /** @class */ (function () {
             }
             WechatToken_1.default.find().then(function (Arr) {
                 return __awaiter(this, void 0, void 0, function () {
-                    var _arr, result_1, access_token, expires_in, result, access_token, expires_in, wechatToken;
+                    var result_1, access_token, expires_in, result, access_token, expires_in, wechatToken;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
                                 if (!Arr.length) return [3 /*break*/, 3];
-                                console.log(typeof Arr);
-                                _arr = JSON.parse(Arr);
-                                console.log(_arr[0].expires_in);
-                                console.log(new Date().getTime());
-                                console.log(+Arr.expires_in < new Date().getTime());
+                                console.log(+Arr[0].expires_in < new Date().getTime());
                                 if (!(+Arr[0].expires_in < new Date().getTime())) return [3 /*break*/, 2];
                                 console.log("token过期了");
                                 return [4 /*yield*/, saveWeChatTokenApi()];
@@ -124,7 +120,7 @@ var Routers = /** @class */ (function () {
                                 result_1 = _a.sent();
                                 access_token = result_1.access_token;
                                 expires_in = new Date().getTime() + result_1.expires_in * 1000;
-                                WechatToken_1.default.update({ _id: Arr._id }, {
+                                WechatToken_1.default.update({ _id: Arr[0]._id }, {
                                     access_token: access_token,
                                     expires_in: expires_in
                                 }, { multi: true }, function (err, docs) {
