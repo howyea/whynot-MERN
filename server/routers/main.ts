@@ -118,12 +118,13 @@ class Routers {
                  })
                  const ticket_expires_in = new Date().getTime() + _result.expire_seconds*1000;
                  const ticket = _result.ticket;
-                 WechatToken.updateOne({_id: body.newToken[0]._id}, {
+                    console.log(JSON.stringify(_result));
+                    WechatToken.updateOne({_id: body.newToken[0]._id}, {
                      ticket,
                      ticket_expires_in
                  }, {multi: true}, function(err, docs){
                      if(err) console.log(err);
-                     console.log('更改成功：' + JSON.stringify( docs ));
+                     console.log('.......更改成功：' + JSON.stringify( docs ));
                      res.json({
                         ticket
                     });
@@ -133,14 +134,17 @@ class Routers {
             const _ticket_expires_in = body.newToken[0].ticket_expires_in;
             if ( !!_ticket_expires_in ) {
                 if ( +_ticket_expires_in < new Date().getTime() ) {
+                    console.log('1');
                     res.json({
                         ticket: body.newToken[0].ticket
                     });
                 } else {
+                    console.log('2');
                     saveWeChatTicketApi ( body );
                 }
             } else {
-                saveWeChatTicketApi ( body );
+                    console.log('3');
+                    saveWeChatTicketApi ( body );
             }
         })
     }

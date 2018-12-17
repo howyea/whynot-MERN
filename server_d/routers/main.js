@@ -168,13 +168,14 @@ var Routers = /** @class */ (function () {
                                 _result = _a.sent();
                                 ticket_expires_in = new Date().getTime() + _result.expire_seconds * 1000;
                                 ticket = _result.ticket;
+                                console.log(JSON.stringify(_result));
                                 WechatToken_1.default.updateOne({ _id: body.newToken[0]._id }, {
                                     ticket: ticket,
                                     ticket_expires_in: ticket_expires_in
                                 }, { multi: true }, function (err, docs) {
                                     if (err)
                                         console.log(err);
-                                    console.log('更改成功：' + JSON.stringify(docs));
+                                    console.log('.......更改成功：' + JSON.stringify(docs));
                                     res.json({
                                         ticket: ticket
                                     });
@@ -193,15 +194,18 @@ var Routers = /** @class */ (function () {
                         _ticket_expires_in = body.newToken[0].ticket_expires_in;
                         if (!!_ticket_expires_in) {
                             if (+_ticket_expires_in < new Date().getTime()) {
+                                console.log('1');
                                 res.json({
                                     ticket: body.newToken[0].ticket
                                 });
                             }
                             else {
+                                console.log('2');
                                 saveWeChatTicketApi(body);
                             }
                         }
                         else {
+                            console.log('3');
                             saveWeChatTicketApi(body);
                         }
                         return [2 /*return*/];
