@@ -76,7 +76,8 @@ class Routers {
             WechatToken.find().then( async function (Arr) {
                 if ( Arr.length ) {
                     console.log( typeof Arr )
-                    console.log(Arr[0].expires_in )
+                    const _arr = JSON.parse(Arr);
+                    console.log(_arr[0].expires_in )
                     console.log(new Date().getTime())
                     console.log(+Arr.expires_in < new Date().getTime());
                     if ( +Arr[0].expires_in < new Date().getTime()) {
