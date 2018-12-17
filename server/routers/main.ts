@@ -116,8 +116,8 @@ class Routers {
                          }
                      }
                  })
-                 const ticket_expires_in = new Date().getTime() + _result.expire_seconds*1000;
-                 const ticket = _result.ticket;
+                 const ticket_expires_in = new Date().getTime() + _result.body.expire_seconds*1000;
+                 const ticket = _result.body.ticket;
                     console.log(JSON.stringify(_result));
                     WechatToken.updateOne({_id: body.newToken[0]._id}, {
                      ticket,
