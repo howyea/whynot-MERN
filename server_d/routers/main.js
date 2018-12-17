@@ -148,25 +148,62 @@ var Routers = /** @class */ (function () {
             });
         });
         this.router.post('/wechatTicket', function (req, res, next) { return __awaiter(_this_1, void 0, void 0, function () {
-            var body, _token, _result;
+            function saveWeChatTicketApi() {
+                return __awaiter(this, void 0, void 0, function () {
+                    var _token, _result, ticket_expires_in, ticket;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                _token = body.newToken[0].access_token;
+                                return [4 /*yield*/, superagent.post("https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + _token, {
+                                        expire_seconds: '604800',
+                                        action_name: 'QR_SCENE',
+                                        action_info: {
+                                            scene: {
+                                                scene_id: 123
+                                            }
+                                        }
+                                    })];
+                            case 1:
+                                _result = _a.sent();
+                                ticket_expires_in = new Date().getTime() + _result.expire_seconds * 1000;
+                                ticket = _result.ticket;
+                                WechatToken_1.default.update({ _id: body.newToken[0]._id }, {
+                                    ticket: ticket,
+                                    ticket_expires_in: ticket_expires_in
+                                }, { multi: true }, function (err, docs) {
+                                    if (err)
+                                        console.log(err);
+                                    console.log('更改成功：' + JSON.stringify(docs));
+                                    res.json({
+                                        ticket: ticket
+                                    });
+                                });
+                                return [2 /*return*/];
+                        }
+                    });
+                });
+            }
+            var body, _ticket_expires_in;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, superagent.get('http://wonder.codemojos.com/weChatToken')];
                     case 1:
                         body = (_a.sent()).body;
-                        _token = body.newToken[0].access_token;
-                        return [4 /*yield*/, superagent.post("https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + _token, {
-                                expire_seconds: '604800',
-                                action_name: 'QR_SCENE',
-                                action_info: {
-                                    scene: {
-                                        scene_id: 123
-                                    }
-                                }
-                            })];
-                    case 2:
-                        _result = _a.sent();
-                        res.json({ result: _result.body });
+                        _ticket_expires_in = body.newToken[0].ticket_expires_in;
+                        if (!!_ticket_expires_in) {
+                            if (+_ticket_expires_in < new Date().getTime()) {
+                                res.json({
+                                    ticket: body.newToken[0].ticket
+                                });
+                            }
+                            else {
+                                saveWeChatTicketApi();
+                            }
+                        }
+                        else {
+                            saveWeChatTicketApi();
+                        }
                         return [2 /*return*/];
                 }
             });
