@@ -113,7 +113,7 @@ var Routers = /** @class */ (function () {
                             case 0:
                                 if (!Arr.length) return [3 /*break*/, 3];
                                 console.log(Arr);
-                                console.log(+Arr.expires_in);
+                                console.log(Arr[0].expires_in);
                                 console.log(new Date().getTime());
                                 console.log(+Arr.expires_in < new Date().getTime());
                                 if (!(+Arr[0].expires_in < new Date().getTime())) return [3 /*break*/, 2];
