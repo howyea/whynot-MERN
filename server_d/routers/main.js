@@ -148,7 +148,7 @@ var Routers = /** @class */ (function () {
             });
         });
         this.router.post('/wechatTicket', function (req, res, next) { return __awaiter(_this_1, void 0, void 0, function () {
-            function saveWeChatTicketApi() {
+            function saveWeChatTicketApi(body) {
                 return __awaiter(this, void 0, void 0, function () {
                     var _token, _result, ticket_expires_in, ticket;
                     return __generator(this, function (_a) {
@@ -198,11 +198,11 @@ var Routers = /** @class */ (function () {
                                 });
                             }
                             else {
-                                saveWeChatTicketApi();
+                                saveWeChatTicketApi(body);
                             }
                         }
                         else {
-                            saveWeChatTicketApi();
+                            saveWeChatTicketApi(body);
                         }
                         return [2 /*return*/];
                 }

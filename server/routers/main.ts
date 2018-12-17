@@ -105,7 +105,7 @@ class Routers {
             });
         })
         this.router.post('/wechatTicket', async (req, res, next) => {
-            async function saveWeChatTicketApi () {
+            async function saveWeChatTicketApi ( body ) {
                 const _token = body.newToken[0].access_token;
                 const _result = await superagent.post(`https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=${ _token }`, {
                      expire_seconds: '604800',
@@ -137,10 +137,10 @@ class Routers {
                         ticket: body.newToken[0].ticket
                     });
                 } else {
-                    saveWeChatTicketApi();
+                    saveWeChatTicketApi ( body );
                 }
             } else {
-                saveWeChatTicketApi();
+                saveWeChatTicketApi ( body );
             }
         })
     }
