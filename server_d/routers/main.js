@@ -112,6 +112,7 @@ var Routers = /** @class */ (function () {
                         switch (_a.label) {
                             case 0:
                                 if (!Arr.length) return [3 /*break*/, 3];
+                                console.log(Arr);
                                 console.log(+Arr.expires_in);
                                 console.log(new Date().getTime());
                                 console.log(+Arr.expires_in < new Date().getTime());
