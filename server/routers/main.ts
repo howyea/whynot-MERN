@@ -82,10 +82,10 @@ class Routers {
                         console.log("token过期了")
                         const result = await saveWeChatTokenApi();
                         const access_token = result.access_token;
-                        const expires_in = new Date().getTime() + result.expires_in*1000;
+                        const token_expires_in = new Date().getTime() + result.expires_in*1000;
                         WechatToken.update({_id: Arr[0]._id}, {
                             access_token,
-                            expires_in
+                            token_expires_in
                         }, {multi: true}, function(err, docs){
                             if(err) console.log(err);
                             console.log('token更改成功：' + JSON.stringify( docs ));

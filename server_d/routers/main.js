@@ -109,7 +109,7 @@ var Routers = /** @class */ (function () {
                 console.log('这个是find的回调' + doc);
             }).then(function (Arr) {
                 return __awaiter(this, void 0, void 0, function () {
-                    var result_1, access_token, expires_in, result, access_token, expires_in, wechatToken;
+                    var result_1, access_token, token_expires_in, result, access_token, expires_in, wechatToken;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
@@ -121,10 +121,10 @@ var Routers = /** @class */ (function () {
                             case 1:
                                 result_1 = _a.sent();
                                 access_token = result_1.access_token;
-                                expires_in = new Date().getTime() + result_1.expires_in * 1000;
+                                token_expires_in = new Date().getTime() + result_1.expires_in * 1000;
                                 WechatToken_1.default.update({ _id: Arr[0]._id }, {
                                     access_token: access_token,
-                                    expires_in: expires_in
+                                    token_expires_in: token_expires_in
                                 }, { multi: true }, function (err, docs) {
                                     if (err)
                                         console.log(err);
