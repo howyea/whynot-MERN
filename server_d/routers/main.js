@@ -105,7 +105,9 @@ var Routers = /** @class */ (function () {
                     });
                 });
             }
-            WechatToken_1.default.find().then(function (Arr) {
+            WechatToken_1.default.find({}, function (err, doc) {
+                console.log('这个是find的回调' + doc);
+            }).then(function (Arr) {
                 return __awaiter(this, void 0, void 0, function () {
                     var result_1, access_token, expires_in, result, access_token, expires_in, wechatToken;
                     return __generator(this, function (_a) {

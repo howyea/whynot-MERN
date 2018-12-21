@@ -73,7 +73,9 @@ class Routers {
                 console.log("这个是token"+JSON.stringify(body))
                 return body;
             }
-            WechatToken.find().then( async function (Arr) {
+            WechatToken.find({}, (err, doc) => {
+                console.log('这个是find的回调'+doc)
+            }).then( async function (Arr) {
                 if ( Arr.length ) {
                     console.log(+Arr[0].expires_in < new Date().getTime());
                     if ( +Arr[0].expires_in < new Date().getTime()) {
