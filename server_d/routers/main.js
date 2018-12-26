@@ -46,6 +46,7 @@ var Category_1 = require("../models/Category");
 var Content_1 = require("../models/Content");
 var User_1 = require("../models/User");
 var WechatToken_1 = require("../models/WechatToken");
+var WechatTicket_1 = require("../models/WechatTicket");
 var utils_1 = require("../utils");
 // const data:Data = {
 //     category: '',
@@ -109,7 +110,7 @@ var Routers = /** @class */ (function () {
                 console.log('这个是find的回调' + doc);
             }).then(function (Arr) {
                 return __awaiter(this, void 0, void 0, function () {
-                    var result_1, access_token, token_expires_in, result, access_token, expires_in, wechatToken;
+                    var result_1, access_token, token_expires_in, result, access_token, token_expires_in, wechatToken;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
@@ -139,10 +140,10 @@ var Routers = /** @class */ (function () {
                             case 4:
                                 result = _a.sent();
                                 access_token = result.access_token;
-                                expires_in = new Date().getTime() + result.expires_in * 1000;
+                                token_expires_in = new Date().getTime() + result.expires_in * 1000;
                                 wechatToken = new WechatToken_1.default({
                                     access_token: access_token,
-                                    expires_in: expires_in
+                                    token_expires_in: token_expires_in
                                 });
                                 return [2 /*return*/, wechatToken.save()];
                         }
@@ -153,13 +154,13 @@ var Routers = /** @class */ (function () {
             });
         });
         this.router.post('/wechatTicket', function (req, res, next) { return __awaiter(_this_1, void 0, void 0, function () {
-            function saveWeChatTicketApi(body) {
+            function saveWeChatTicketApi(obj) {
                 return __awaiter(this, void 0, void 0, function () {
-                    var _token, _result, ticket_expires_in, ticket;
+                    var _token, body;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                _token = body.newToken[0].access_token;
+                                _token = obj.newToken[0].access_token;
                                 return [4 /*yield*/, superagent.post("https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + _token, {
                                         expire_seconds: '604800',
                                         action_name: 'QR_SCENE',
@@ -170,52 +171,62 @@ var Routers = /** @class */ (function () {
                                         }
                                     })];
                             case 1:
-                                _result = _a.sent();
-                                ticket_expires_in = new Date().getTime() + _result.body.expire_seconds * 1000;
-                                ticket = _result.body.ticket;
-                                console.log(JSON.stringify(_result.body));
-                                console.log(body.newToken[0]._id);
-                                WechatToken_1.default.updateOne({ _id: body.newToken[0]._id }, {
-                                    ticket: ticket,
-                                    ticket_expires_in: ticket_expires_in
-                                }, { multi: true }, function (err, docs) {
-                                    if (err)
-                                        console.log(err);
-                                    console.log('.......更改成功：' + JSON.stringify(docs));
-                                    res.json({
-                                        ticket: ticket
-                                    });
-                                });
-                                return [2 /*return*/];
+                                body = (_a.sent()).body;
+                                return [2 /*return*/, body];
                         }
                     });
                 });
             }
-            var body, _ticket_expires_in;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, superagent.get('http://wonder.codemojos.com/weChatToken')];
-                    case 1:
-                        body = (_a.sent()).body;
-                        _ticket_expires_in = body.newToken[0].ticket_expires_in;
-                        if (!!_ticket_expires_in) {
-                            if (+_ticket_expires_in < new Date().getTime()) {
-                                console.log('1');
-                                res.json({
-                                    ticket: body.newToken[0].ticket
-                                });
+                WechatTicket_1.default.find({}).then(function (Arr) {
+                    return __awaiter(this, void 0, void 0, function () {
+                        var body, result_2, ticket, ticket_expires_in, _result, ticket_expires_in, ticket, wechatTicket;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0: return [4 /*yield*/, superagent.get('http://wonder.codemojos.com/weChatToken')];
+                                case 1:
+                                    body = (_a.sent()).body;
+                                    if (!Arr.length) return [3 /*break*/, 5];
+                                    console.log(+Arr[0].ticket_expires_in < new Date().getTime());
+                                    if (!(+Arr[0].ticket_expires_in < new Date().getTime())) return [3 /*break*/, 3];
+                                    console.log("token过期了");
+                                    return [4 /*yield*/, saveWeChatTicketApi(body)];
+                                case 2:
+                                    result_2 = _a.sent();
+                                    ticket = result_2.ticket;
+                                    ticket_expires_in = new Date().getTime() + result_2.ticket_expires_in * 1000;
+                                    WechatTicket_1.default.update({ _id: Arr[0]._id }, {
+                                        ticket: ticket,
+                                        ticket_expires_in: ticket_expires_in
+                                    }, { multi: true }, function (err, docs) {
+                                        if (err)
+                                            console.log(err);
+                                        console.log('ticket更改成功：' + JSON.stringify(docs));
+                                        return result_2;
+                                    });
+                                    return [3 /*break*/, 4];
+                                case 3:
+                                    console.log("这个是数据库中的ticket" + Arr);
+                                    return [2 /*return*/, Arr];
+                                case 4: return [3 /*break*/, 7];
+                                case 5: return [4 /*yield*/, saveWeChatTicketApi(body)];
+                                case 6:
+                                    _result = _a.sent();
+                                    ticket_expires_in = new Date().getTime() + _result.expire_seconds * 1000;
+                                    ticket = _result.ticket;
+                                    wechatTicket = new WechatTicket_1.default({
+                                        ticket: ticket,
+                                        ticket_expires_in: ticket_expires_in
+                                    });
+                                    return [2 /*return*/, wechatTicket.save()];
+                                case 7: return [2 /*return*/];
                             }
-                            else {
-                                console.log('2');
-                                saveWeChatTicketApi(body);
-                            }
-                        }
-                        else {
-                            console.log('3');
-                            saveWeChatTicketApi(body);
-                        }
-                        return [2 /*return*/];
-                }
+                        });
+                    });
+                }).then(function (newTicket) {
+                    res.json({ newTicket: newTicket });
+                });
+                return [2 /*return*/];
             });
         }); });
     };
