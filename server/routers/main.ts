@@ -78,8 +78,8 @@ class Routers {
                 console.log('这个是find的回调'+doc)
             }).then( async function (Arr) {
                 if ( Arr.length ) {
-                    console.log(+Arr[0].expires_in < new Date().getTime());
-                    if ( +Arr[0].expires_in < new Date().getTime()) {
+                    console.log(+Arr[0].token_expires_in < new Date().getTime());
+                    if ( +Arr[0].token_expires_in < new Date().getTime()) {
                         console.log("token过期了")
                         const result = await saveWeChatTokenApi();
                         const access_token = result.access_token;
@@ -92,9 +92,10 @@ class Routers {
                             console.log('token更改成功：' + JSON.stringify( docs ));
                             return result
                         })
+                    } else {
+                        console.log("这个是数据库中的token"+Arr);
+                        return Arr;
                     }
-                    console.log("这个是数据库中的token"+Arr);
-                    return Arr;
                 } else {
                     const result = await saveWeChatTokenApi();
                     const access_token = result.access_token;
@@ -142,7 +143,7 @@ class Routers {
                         })
                     } else {
                         console.log("这个是数据库中的ticket"+Arr);
-                        return Arr;
+                        return Arr[0];
                     }
                 } else {
                     const _result = await saveWeChatTicketApi ( body );

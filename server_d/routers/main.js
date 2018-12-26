@@ -114,9 +114,9 @@ var Routers = /** @class */ (function () {
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                if (!Arr.length) return [3 /*break*/, 3];
-                                console.log(+Arr[0].expires_in < new Date().getTime());
-                                if (!(+Arr[0].expires_in < new Date().getTime())) return [3 /*break*/, 2];
+                                if (!Arr.length) return [3 /*break*/, 4];
+                                console.log(+Arr[0].token_expires_in < new Date().getTime());
+                                if (!(+Arr[0].token_expires_in < new Date().getTime())) return [3 /*break*/, 2];
                                 console.log("token过期了");
                                 return [4 /*yield*/, saveWeChatTokenApi()];
                             case 1:
@@ -132,12 +132,13 @@ var Routers = /** @class */ (function () {
                                     console.log('token更改成功：' + JSON.stringify(docs));
                                     return result_1;
                                 });
-                                _a.label = 2;
+                                return [3 /*break*/, 3];
                             case 2:
                                 console.log("这个是数据库中的token" + Arr);
                                 return [2 /*return*/, Arr];
-                            case 3: return [4 /*yield*/, saveWeChatTokenApi()];
-                            case 4:
+                            case 3: return [3 /*break*/, 6];
+                            case 4: return [4 /*yield*/, saveWeChatTokenApi()];
+                            case 5:
                                 result = _a.sent();
                                 access_token = result.access_token;
                                 token_expires_in = new Date().getTime() + result.expires_in * 1000;
@@ -146,6 +147,7 @@ var Routers = /** @class */ (function () {
                                     token_expires_in: token_expires_in
                                 });
                                 return [2 /*return*/, wechatToken.save()];
+                            case 6: return [2 /*return*/];
                         }
                     });
                 });
@@ -207,7 +209,7 @@ var Routers = /** @class */ (function () {
                                     return [3 /*break*/, 4];
                                 case 3:
                                     console.log("这个是数据库中的ticket" + Arr);
-                                    return [2 /*return*/, Arr];
+                                    return [2 /*return*/, Arr[0]];
                                 case 4: return [3 /*break*/, 7];
                                 case 5: return [4 /*yield*/, saveWeChatTicketApi(body)];
                                 case 6:
