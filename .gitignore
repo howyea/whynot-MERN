@@ -1,5 +1,6 @@
 # Compiled files
 # dist/
+/yarn.lock
 
 # Config file
 config/config.js
