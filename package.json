@@ -10,12 +10,14 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "prod": "cross-env NODE_ENV=production node server",
+        "prod": "NODE_ENV=production node server",
         "prod-server": "NODE_ENV=production forever start -a -l forever.log -o out.log -e err.log server_d/server.js",
         "prod-server-test": "forever start -a -l forever.log -o out.log -e err.log server_d/server.js",
         "stop-server": "forever stop server_d/server.js",
         "build": "NODE_ENV=production webpack --config webpack.config.js",
-        "dev": "node server"
+        "dev": "NODE_ENV=dev-mobile node server",
+        "build-pc": "webpack --config ./config/webpack.pc.js",
+        "dev-pc": "NODE_ENV=dev-pc node server"
     },
     "engines": {
         "node": ">=6"
@@ -44,6 +46,7 @@
         "styled-components": "^3.4.6",
         "superagent": "^3.8.3",
         "three": "^0.98.0",
+        "vue": "^2.5.21",
         "whatwg-fetch": "^2.0.3",
         "xunfeisdk": "^1.0.1"
     },
@@ -82,9 +85,12 @@
         "sass-loader": "^6.0.7",
         "source-map-loader": "^0.2.4",
         "style-loader": "^0.20.3",
-        "typescript": "^2.7.1",
+        "ts-loader": "^5.3.2",
+        "typescript": "^3.2.2",
         "uglifyjs-webpack-plugin": "^2.0.1",
         "url-loader": "^1.1.1",
+        "vue-loader": "^15.4.2",
+        "vue-template-compiler": "2.2.1",
         "webpack": "^4.2.0",
         "webpack-bundle-size-analyzer": "^3.0.0",
         "webpack-cli": "^3.1.2",

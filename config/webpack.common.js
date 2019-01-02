@@ -4,6 +4,7 @@ const path =require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+// var TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 
 const helpers = require('./helpers');
 
@@ -31,7 +32,13 @@ module.exports = {
     module: {
         rules: [
             // JS files
-            { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+            { 
+                test: /\.tsx?$/,
+                loader: "awesome-typescript-loader",
+                options: {
+                    configFileName: 'tsconfig.mobile.json'
+                }
+            },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
                 test: /\.jsx?$/,
@@ -108,7 +115,7 @@ module.exports = {
         "antd-mobile":"antd-mobile"
     }, */
     plugins: [
-
+        // new TsConfigPathsPlugin({ configFileName: 'mobile.tsconfig.json' }),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify(NODE_ENV)
