@@ -1,10 +1,11 @@
 import request from "superagent";
-async function login () {
+async function login (params) {
     const {body} = await request.get('https://hrmapi.que360.com/Api/Permission/getAdminPermissionNew', {
-        username: '13570264649',
-        password: 'yehuiyu152+',
+        // username: '13570264649',
+        // password: 'yehuiyu152+',
         // username: '18948319410',
         // password: 'w123456',
+        ...params,
         client_secret: 'ITEHvFFJtiNrmEY3lcDeyMadgFuNGEpD',
         client_id: '100012'
     });
@@ -12,10 +13,16 @@ async function login () {
 }
 async function signIn (params) {
     const {body} = await request.post('https://hrmapi.que360.com/Api/AttendanceManage/clockOnAndOff', {
-        equipment: 'OPPO R9s-6.0.1(3bd3a8dd)',
-        equipment_number: '3bd3a8dd',
-        phone_model: 'OPPO R9s',
-        operating_system: 'Android Linux6.0.1',
+        // equipment: 'OPPO R9s-6.0.1(3bd3a8dd)',
+        // equipment_number: '3bd3a8dd',
+        // phone_model: 'OPPO R9s',
+        // operating_system: 'Android Linux6.0.1',
+
+        // equipment: 'SM-G9009W-5.0(1e2699b9)',
+        // equipment_number: '1e2699b9',
+        // phone_model: 'SM-G9009W',
+        // operating_system: 'Android Linux5.0',
+
         version: '1.9.1',
         sign_type: '1',
         in_or_out: '2',

@@ -95,7 +95,7 @@ if (isDev) {
         'Connection': 'keep-alive'
     });
     // res.sendFile(path.resolve(__dirname, '../dist/index.html'));
-    res.sendFile(path.resolve(__dirname, '../dist_pc/index.html'));
+    res.sendFile(path.resolve(__dirname, '../dist_pc/index.html?xvzzxvdgsdg'));
     res.end();
   });
 }

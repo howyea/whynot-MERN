@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
-var fs = require("fs");
 var historyApiFallback = require("connect-history-api-fallback");
 var mongoose = require("mongoose");
 var path = require("path");
@@ -81,16 +80,14 @@ else {
     app.use(express.static(path.resolve(__dirname, '../dist_pc')));
     // app.use(express.static('dist_pc'));
     //   app.use(express.static(path.resolve(__dirname, '../dist')));
-    app.setHeader({
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive'
-    });
-    app.get('*', function (req, res) {
+    app.use('*', function (req, res) {
+        res.writeHead(200, {
+            'Content-Type': 'text/event-stream',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive'
+        });
         // res.sendFile(path.resolve(__dirname, '../dist/index.html'));
-        // res.sendFile('../dist_pc/index.html');
-        var html = fs.readFileSync('../dist_pc/index.html', 'utf8');
-        res.render('test', { html: html });
+        res.sendFile(path.resolve(__dirname, '../dist_pc/index.html?xvzzxvdgsdg'));
         res.end();
     });
 }
