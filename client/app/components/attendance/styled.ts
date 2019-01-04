@@ -13,9 +13,15 @@ export const AttendanceStyled = styled.div`
         height: ${ window.screen.height - 100}px;
         border-radius: 50%;
         background-color: #3c4f9b;
+        .icon2{
+            position: absolute;
+            z-index: 2;
+                left: 1.92rem;
+            }
         .icon {
             position: absolute;
             z-index: 2;
+            
         }
         canvas {
             position: absolute;
