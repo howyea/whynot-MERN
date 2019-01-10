@@ -112,7 +112,7 @@ mongoose.connect('mongodb://120.79.165.210:27017/blog', { useNewUrlParser: true 
     }
     else {
         console.log('数据库连接成功');
-        app.listen(8089);
+        app.listen(8088);
     }
 });
 // app.listen(port, '0.0.0.0', (err) => {
