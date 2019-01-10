@@ -10,6 +10,7 @@ import * as webpackHotMiddleware from 'webpack-hot-middleware';
 
 // import config from '../config/config';
 import * as webpackConfig from '../webpack.config';
+import * as webpackPc from '../config/webpack.pc';
 import main from './routers/main'
 
 const isDev = process.env.NODE_ENV !== 'production';
@@ -33,41 +34,74 @@ app.use(bodyParser.json());
 app.use('/', main);
 
 if (isDev) {
-  const compiler = webpack(webpackConfig);
-  
-  app.use(historyApiFallback({
-      verbose: false
-    }));
     
-    app.use(webpackDevMiddleware(compiler, {
-        publicPath: webpackConfig.output.publicPath,
-        contentBase: path.resolve(__dirname, '../../client/public'),
-        stats: {
-            colors: true,
-            hash: false,
-      timings: true,
-      chunks: false,
-      chunkModules: false,
-      modules: false
-    }
-  }));
-  console.log("来这里");
-  app.use(webpackHotMiddleware(compiler));
-  app.use(express.static(path.resolve(__dirname, '../dist')));
-} else {
-  console.log("来这里22222");
+    app.use(historyApiFallback({
+        verbose: false
+    }));
+    console.log(process.env.NODE_ENV);
+    const _node_env = process.env.NODE_ENV;
+    if ( _node_env.indexOf('mobile') !== -1 ) {
+        console.log("mobile"+  process.env.NODE_ENV);
 
-  app.use(express.static('dist'));
-//   app.use(express.static(path.resolve(__dirname, '../dist')));
-  app.get('*', function (req, res) {
+        const compiler = webpack(webpackConfig);
+        app.use(webpackDevMiddleware(compiler, {
+            publicPath: webpackConfig.output.publicPath,
+            contentBase: path.resolve(__dirname, '../../client/public'),
+            stats: {
+                colors: true,
+                hash: false,
+                timings: true,
+                chunks: false,
+                chunkModules: false,
+                modules: false
+            }
+        }))
+        app.use(webpackHotMiddleware(compiler));
+        app.use(express.static(path.resolve(__dirname, '../server_file/dist')));
+    } else if ( _node_env.indexOf('pc') !== -1 ) {
+        console.log("pc"+  process.env.NODE_ENV);
+        const compiler = webpack(webpackPc);
+        app.use(webpackDevMiddleware(compiler, {
+            publicPath: webpackPc.output.publicPath,
+            contentBase: path.join(__dirname, '../../client_pc'),
+        // contentBase: path.resolve(__dirname, '../../client-pc'),
+            stats: {
+                colors: true,
+                hash: false,
+                timings: true,
+                chunks: false,
+                chunkModules: false,
+                modules: false
+            }
+        }));
+        app.use(webpackHotMiddleware(compiler));
+        app.use(express.static(path.resolve(__dirname, '../server_file/dist_pc')));
+    }
+  
+  console.log("来这里");
+} else {
+    console.log("来这里22222");
+    app.use(express.static(path.resolve(__dirname, '../server_file/dist_pc')));
+    app.use(express.static(path.resolve(__dirname, '../server_file/dist')));
+    app.engine('html', require('ejs').renderFile);
+    app.set('view engine', 'html');
+    app.get('/mobile', function (req, res) {
+        res.render('../server_file/dist/mobile');
+    });
+    app.get('/', function (req, res) {
+        res.render('../server_file/dist_pc/pc');
+    });
+  /* app.use('*', function (req, res) {
     res.writeHead(200, {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
         'Connection': 'keep-alive'
     });
-    res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+
+    // res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+    res.sendFile(path.resolve(__dirname, '../server_file/dist/index.html'));
     res.end();
-  });
+  }); */
 }
 /* app.use(express.static('dist'));
 app.get('*', function (req, res) {
@@ -84,7 +118,7 @@ mongoose.connect('mongodb://120.79.165.210:27017/blog',  { useNewUrlParser: true
         console.log('数据库连接失败')
     } else {
         console.log('数据库连接成功')
-        app.listen(8088);
+        app.listen(8089);
     }
 });
 // app.listen(port, '0.0.0.0', (err) => {
