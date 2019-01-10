@@ -23,7 +23,7 @@
     "noUnusedLocals": false
   },
   "include": [
-    "./client/**/*"
+    "./client_pc/**/*"
     ],
   "exclude": [
     "node_modules",
@@ -31,6 +31,7 @@
     "webpack.config.js",
     "server",
     "server.js",
-    "postcss.config.js"
+    "postcss.config.js",
+    "./client/**/*"
   ]
 }

@@ -49,15 +49,14 @@ if (isDev) {
             }
         }));
         app.use(webpackHotMiddleware(compiler));
-        app.use(express.static(path.resolve(__dirname, '../dist')));
+        app.use(express.static(path.resolve(__dirname, '../server_file/dist')));
     }
     else if (_node_env.indexOf('pc') !== -1) {
         console.log("pc" + process.env.NODE_ENV);
         var compiler = webpack(webpackPc);
         app.use(webpackDevMiddleware(compiler, {
-            index: 'pc.html',
             publicPath: webpackPc.output.publicPath,
-            contentBase: path.join(__dirname, '../../dist_pc'),
+            contentBase: path.join(__dirname, '../../client_pc'),
             // contentBase: path.resolve(__dirname, '../../client-pc'),
             stats: {
                 colors: true,
@@ -69,27 +68,33 @@ if (isDev) {
             }
         }));
         app.use(webpackHotMiddleware(compiler));
-        app.use(express.static(path.resolve(__dirname, '../dist_pc')));
+        app.use(express.static(path.resolve(__dirname, '../server_file/dist_pc')));
     }
     console.log("来这里");
 }
 else {
     console.log("来这里22222");
-    //   app.use(express.static('dist'));
-    app.use(express.static(path.resolve(__dirname, '../dist')));
-    app.use(express.static(path.resolve(__dirname, '../dist_pc')));
-    // app.use(express.static('dist_pc'));
-    //   app.use(express.static(path.resolve(__dirname, '../dist')));
-    app.use('*', function (req, res) {
-        res.writeHead(200, {
-            'Content-Type': 'text/event-stream',
-            'Cache-Control': 'no-cache',
-            'Connection': 'keep-alive'
-        });
-        // res.sendFile(path.resolve(__dirname, '../dist/index.html'));
-        res.sendFile(path.resolve(__dirname, '../dist_pc/index.html?xvzzxvdgsdg'));
-        res.end();
+    app.use(express.static(path.resolve(__dirname, '../server_file/dist_pc')));
+    app.use(express.static(path.resolve(__dirname, '../server_file/dist')));
+    app.engine('html', require('ejs').renderFile);
+    app.set('view engine', 'html');
+    app.get('/mobile', function (req, res) {
+        res.render('../server_file/dist/mobile');
     });
+    app.get('/', function (req, res) {
+        res.render('../server_file/dist_pc/pc');
+    });
+    /* app.use('*', function (req, res) {
+      res.writeHead(200, {
+          'Content-Type': 'text/event-stream',
+          'Cache-Control': 'no-cache',
+          'Connection': 'keep-alive'
+      });
+  
+      // res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+      res.sendFile(path.resolve(__dirname, '../server_file/dist/index.html'));
+      res.end();
+    }); */
 }
 /* app.use(express.static('dist'));
 app.get('*', function (req, res) {

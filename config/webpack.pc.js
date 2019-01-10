@@ -1,11 +1,13 @@
 var path = require('path')
 var webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const helpers = require('./helpers');
 
 module.exports = {
-    entry: './client-pc/index.ts',
+    entry: './client_pc/index.ts',
     output: {
-        path: path.resolve(__dirname, '../dist_pc'),
+        path: path.resolve(__dirname, '../server_file/dist_pc'),
         publicPath: '/',
         filename: 'js/build.js'
     },
@@ -52,8 +54,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: './client-pc/index.html',
+            filename: 'pc.html',
+            template: './client_pc/index.html',
             inject: true,
             hash: true,
             minify: {
@@ -69,6 +71,10 @@ module.exports = {
                 minifyURLs: true,
             },
         }),
+        new CopyWebpackPlugin([{
+            from: helpers.root('client_pc'),
+            ignore: [ 'index.html' ]
+        }])
     ],
     /* devServer: {
         index: 'index.html',

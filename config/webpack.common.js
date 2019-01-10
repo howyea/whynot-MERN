@@ -19,7 +19,7 @@ module.exports = {
     },
 
     output: {
-        path: helpers.root('dist'),
+        path: helpers.root('server_file/dist'),
         publicPath: '/'
     },
     devtool: "source-map",
@@ -123,7 +123,7 @@ module.exports = {
         }),
 
         new HtmlWebpackPlugin({
-            filename: 'index.html',
+            filename: 'mobile.html',
             template: helpers.root('client/public/index.html'),
             inject: true,
             hash: true,
@@ -147,7 +147,8 @@ module.exports = {
         }),
 
         new CopyWebpackPlugin([{
-            from: helpers.root('client/public')
+            from: helpers.root('client/public'),
+            ignore: [ 'index.html' ]
         }])
     ]
 };
