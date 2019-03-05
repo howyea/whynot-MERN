@@ -12,6 +12,8 @@ var webpackHotMiddleware = require("webpack-hot-middleware");
 var webpackConfig = require("../webpack.config");
 var webpackPc = require("../config/webpack.pc");
 var main_1 = require("./routers/main");
+var email_1 = require("./email");
+email_1.default();
 var isDev = process.env.NODE_ENV !== 'production';
 var port = process.env.PORT || 8086;
 // Configuration

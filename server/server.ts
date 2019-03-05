@@ -11,8 +11,9 @@ import * as webpackHotMiddleware from 'webpack-hot-middleware';
 // import config from '../config/config';
 import * as webpackConfig from '../webpack.config';
 import * as webpackPc from '../config/webpack.pc';
-import main from './routers/main'
-
+import main from './routers/main';
+import email from "./email";
+email();
 const isDev = process.env.NODE_ENV !== 'production';
 const port  = process.env.PORT || 8086;
 
