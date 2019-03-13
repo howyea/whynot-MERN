@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const helpers = require('./helpers');
 
 module.exports = {
-    entry: './client_pc/index.ts',
+    entry: ['webpack-hot-middleware/client?reload=true', './client_pc/index.ts'],
     output: {
         path: path.resolve(__dirname, '../server_file/dist_pc'),
         publicPath: '/',
@@ -53,6 +53,7 @@ module.exports = {
         }
     },
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             filename: 'pc.html',
             template: './client_pc/index.html',

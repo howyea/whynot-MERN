@@ -11,8 +11,9 @@ import * as webpackHotMiddleware from 'webpack-hot-middleware';
 // import config from '../config/config';
 import * as webpackConfig from '../webpack.config';
 import * as webpackPc from '../config/webpack.pc';
-import main from './routers/main'
-
+import main from './routers/main';
+// import email from "./email";
+// email();
 const isDev = process.env.NODE_ENV !== 'production';
 const port  = process.env.PORT || 8086;
 
@@ -58,6 +59,23 @@ if (isDev) {
         }))
         app.use(webpackHotMiddleware(compiler));
         app.use(express.static(path.resolve(__dirname, '../server_file/dist')));
+        app.use(function(req, res, next) {
+            //判断是主动导向404页面，还是传来的前端路由。
+        　　 //如果是前端路由则如下处理
+        
+            fs.readFile(path.resolve(__dirname, '../server_file/dist/mobile.html'), function(err, data){
+                if(err){
+                    console.log(err);
+                    res.send('后台错误');
+                } else {
+                    res.writeHead(200, {
+                        'Content-type': 'text/html',
+                        'Connection':'keep-alive'
+                    });
+                    res.end(data);
+                }
+            })
+        });
     } else if ( _node_env.indexOf('pc') !== -1 ) {
         console.log("pc"+  process.env.NODE_ENV);
         const compiler = webpack(webpackPc);
@@ -76,8 +94,25 @@ if (isDev) {
         }));
         app.use(webpackHotMiddleware(compiler));
         app.use(express.static(path.resolve(__dirname, '../server_file/dist_pc')));
+        app.use(function(req, res, next) {
+            //判断是主动导向404页面，还是传来的前端路由。
+        　　 //如果是前端路由则如下处理
+        
+            fs.readFile(path.resolve(__dirname, '../server_file/dist_pc/pc.html'), function(err, data){
+                if(err){
+                    console.log(err);
+                    res.send('后台错误');
+                } else {
+                    res.writeHead(200, {
+                        'Content-type': 'text/html',
+                        'Connection':'keep-alive'
+                    });
+                    res.end(data);
+                }
+            })
+        });
     }
-  
+    
   console.log("来这里");
 } else {
     console.log("来这里22222");
@@ -118,7 +153,7 @@ mongoose.connect('mongodb://120.79.165.210:27017/blog',  { useNewUrlParser: true
         console.log('数据库连接失败')
     } else {
         console.log('数据库连接成功')
-        app.listen(8089);
+        app.listen(8088);
     }
 });
 // app.listen(port, '0.0.0.0', (err) => {

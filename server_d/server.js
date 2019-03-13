@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
+var fs = require("fs");
 var historyApiFallback = require("connect-history-api-fallback");
 var mongoose = require("mongoose");
 var path = require("path");
@@ -12,6 +13,8 @@ var webpackHotMiddleware = require("webpack-hot-middleware");
 var webpackConfig = require("../webpack.config");
 var webpackPc = require("../config/webpack.pc");
 var main_1 = require("./routers/main");
+var email_1 = require("./email");
+email_1.default();
 var isDev = process.env.NODE_ENV !== 'production';
 var port = process.env.PORT || 8086;
 // Configuration
@@ -50,6 +53,23 @@ if (isDev) {
         }));
         app.use(webpackHotMiddleware(compiler));
         app.use(express.static(path.resolve(__dirname, '../server_file/dist')));
+        app.use(function (req, res, next) {
+            //判断是主动导向404页面，还是传来的前端路由。
+            //如果是前端路由则如下处理
+            fs.readFile(path.resolve(__dirname, '../server_file/dist/mobile.html'), function (err, data) {
+                if (err) {
+                    console.log(err);
+                    res.send('后台错误');
+                }
+                else {
+                    res.writeHead(200, {
+                        'Content-type': 'text/html',
+                        'Connection': 'keep-alive'
+                    });
+                    res.end(data);
+                }
+            });
+        });
     }
     else if (_node_env.indexOf('pc') !== -1) {
         console.log("pc" + process.env.NODE_ENV);
@@ -69,6 +89,23 @@ if (isDev) {
         }));
         app.use(webpackHotMiddleware(compiler));
         app.use(express.static(path.resolve(__dirname, '../server_file/dist_pc')));
+        app.use(function (req, res, next) {
+            //判断是主动导向404页面，还是传来的前端路由。
+            //如果是前端路由则如下处理
+            fs.readFile(path.resolve(__dirname, '../server_file/dist_pc/pc.html'), function (err, data) {
+                if (err) {
+                    console.log(err);
+                    res.send('后台错误');
+                }
+                else {
+                    res.writeHead(200, {
+                        'Content-type': 'text/html',
+                        'Connection': 'keep-alive'
+                    });
+                    res.end(data);
+                }
+            });
+        });
     }
     console.log("来这里");
 }
@@ -112,7 +149,7 @@ mongoose.connect('mongodb://120.79.165.210:27017/blog', { useNewUrlParser: true 
     }
     else {
         console.log('数据库连接成功');
-        app.listen(8089);
+        app.listen(8088);
     }
 });
 // app.listen(port, '0.0.0.0', (err) => {
