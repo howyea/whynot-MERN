@@ -38,21 +38,21 @@ class App extends React.Component<AppProps, AppState> {
     handleNavChange = (activeIndex) => {
         switch (activeIndex) {
             case 0:
-                this.props.history.push('/main/app')
+                this.props.history.push('/mobile/main/app')
                 break;
             case 1:
-                this.props.history.push('/main/app/attendance')
+                this.props.history.push('/mobile/main/app/attendance')
                 break;
             default:
-                this.props.history.push('/main/app/userCenter')
+                this.props.history.push('/mobile/main/app/userCenter')
         }
     };
     render() {
         return (
             <div>
-                    <Route exact path="/main/app" component={Blogs} />
-                    <Route path="/main/app/userCenter" component={UserCenter} />
-                    <Route path="/main/app/attendance" component={Attendance} />
+                    <Route exact path="/mobile/main/app" component={Blogs} />
+                    <Route path="/mobile/main/app/userCenter" component={UserCenter} />
+                    <Route path="/mobile/main/app/attendance" component={Attendance} />
                 <BottomNavigation links={links} dynamic={true}  onNavChange={this.handleNavChange}/>
             </div>
         )
