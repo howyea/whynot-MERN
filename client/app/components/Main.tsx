@@ -21,8 +21,8 @@ class Main extends React.Component<MainProps, MainState> {
                  <Header>
                     <MyIcons width="1" url={require('../images/logo.png')}></MyIcons>
                 </Header>
-                <Route  path="/main" component={App} />
-                <Route path="/main/login" component={Login} />
+                <Route  path="/mobile/main" component={App} />
+                <Route path="/mobile/main/login" component={Login} />
             </div>
          );
     }

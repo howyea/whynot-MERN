@@ -27,9 +27,9 @@ class Ad extends React.Component<AdProps, {}> {
             } else {
                 const _token = localStorage.getItem('token');
                 if ( _token ) {
-                    this.props.history.push('/main/app');
+                    this.props.history.push('/mobile/main/app');
                 } else {
-                    this.props.history.push('/main/login');
+                    this.props.history.push('/mobile/main/login');
                 }
             }
         }
@@ -41,7 +41,7 @@ class Ad extends React.Component<AdProps, {}> {
     render() {
         return <AdStyled>
             <div className="skip" onClick={() => {
-                this.props.history.push('/main/app');
+                this.props.history.push('/mibile/main/app');
             }}><span>{ this.state.count }</span><span>跳过</span></div>
             <MyIcons className="logo" width="4" url={require('../../images/logo.png')} bgc="#1c388c"></MyIcons>
             <h5>do what you want</h5>

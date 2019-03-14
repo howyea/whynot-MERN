@@ -10,8 +10,8 @@ import Login from "./components/login";
 ReactDOM.render(
         <Router>
             <Switch>
-                <Route path="/main" component={Main} />
-                <Route exact path="/mobile" component={Ad}/>
+                <Route path="/mobile/main" component={Main} />
+                <Route exact path="/mobile/ad" component={Ad}/>
             </Switch>
         </Router>,
     document.getElementById('app')
