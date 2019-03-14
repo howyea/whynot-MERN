@@ -12,8 +12,8 @@ import * as webpackHotMiddleware from 'webpack-hot-middleware';
 import * as webpackConfig from '../webpack.config';
 import * as webpackPc from '../config/webpack.pc';
 import main from './routers/main';
-// import email from "./email";
-// email();
+import email from "./email";
+email();
 const isDev = process.env.NODE_ENV !== 'production';
 const port  = process.env.PORT || 8086;
 
@@ -58,7 +58,7 @@ if (isDev) {
             }
         }))
         app.use(webpackHotMiddleware(compiler));
-        app.use(express.static(path.resolve(__dirname, '../server_file/dist')));
+        // app.use(express.static(path.resolve(__dirname, '../server_file/dist')));
         app.use(function(req, res, next) {
             //判断是主动导向404页面，还是传来的前端路由。
         　　 //如果是前端路由则如下处理
@@ -93,7 +93,7 @@ if (isDev) {
             }
         }));
         app.use(webpackHotMiddleware(compiler));
-        app.use(express.static(path.resolve(__dirname, '../server_file/dist_pc')));
+        // app.use(express.static(path.resolve(__dirname, '../server_file/dist_pc')));
         app.use(function(req, res, next) {
             //判断是主动导向404页面，还是传来的前端路由。
         　　 //如果是前端路由则如下处理
@@ -120,9 +120,27 @@ if (isDev) {
     app.use(express.static(path.resolve(__dirname, '../server_file/dist')));
     app.engine('html', require('ejs').renderFile);
     app.set('view engine', 'html');
-    app.get('/mobile', function (req, res) {
+    /* app.get('/mobile', function (req, res) {
         res.render('../server_file/dist/mobile');
+    }); */
+    app.use('/mobile', function(req, res, next) {
+        //判断是主动导向404页面，还是传来的前端路由。
+    　　 //如果是前端路由则如下处理
+    
+        fs.readFile(path.resolve(__dirname, '../server_file/dist/mobile.html'), function(err, data){
+            if(err){
+                console.log(err);
+                res.send('后台错误');
+            } else {
+                res.writeHead(200, {
+                    'Content-type': 'text/html',
+                    'Connection':'keep-alive'
+                });
+                res.end(data);
+            }
+        })
     });
+    //pc端也是需要适配前端路由的，后期做到的时候需完善
     app.get('/', function (req, res) {
         res.render('../server_file/dist_pc/pc');
     });
