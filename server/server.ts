@@ -13,7 +13,6 @@ import * as webpackConfig from '../webpack.config';
 import * as webpackPc from '../config/webpack.pc';
 import main from './routers/main';
 import email from "./email";
-email();
 const isDev = process.env.NODE_ENV !== 'production';
 const port  = process.env.PORT || 8086;
 
@@ -115,6 +114,7 @@ if (isDev) {
     
   console.log("来这里");
 } else {
+    email();
     console.log("来这里22222");
     app.use(express.static(path.resolve(__dirname, '../server_file/dist_pc')));
     app.use(express.static(path.resolve(__dirname, '../server_file/dist')));

@@ -14,7 +14,6 @@ var webpackConfig = require("../webpack.config");
 var webpackPc = require("../config/webpack.pc");
 var main_1 = require("./routers/main");
 var email_1 = require("./email");
-email_1.default();
 var isDev = process.env.NODE_ENV !== 'production';
 var port = process.env.PORT || 8086;
 // Configuration
@@ -110,6 +109,7 @@ if (isDev) {
     console.log("来这里");
 }
 else {
+    email_1.default();
     console.log("来这里22222");
     app.use(express.static(path.resolve(__dirname, '../server_file/dist_pc')));
     app.use(express.static(path.resolve(__dirname, '../server_file/dist')));
