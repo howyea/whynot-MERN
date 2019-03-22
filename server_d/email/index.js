@@ -33,8 +33,8 @@ var EmailTo = "1070231248@qq.com";
 //邮件主题
 var EmailSubject = "一封暖暖的小邮件";
 //每日发送时间
-var EmailHour = 15;
-var EmialMinminute = 50;
+var EmailHour = 16;
+var EmialMinminute = 0;
 // 爬取数据的url
 var OneUrl = "http://wufazhuce.com/";
 var WeatherUrl = "https://tianqi.moji.com/weather/china/" + local;
