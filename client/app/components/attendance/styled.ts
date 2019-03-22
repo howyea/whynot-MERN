@@ -8,10 +8,13 @@ const columnVerticalCenter = css`
 export const AttendanceStyled = styled.div`
     height: ${ window.screen.height - 113}px;
     ${ columnVerticalCenter }
+    button {
+            background-color:#fff;
+            z-index:100;
+        }
     .box {
         width: 100%;
         height: ${ window.screen.height - 100}px;
-        border-radius: 50%;
         background-color: #3c4f9b;
         .icon2{
             position: absolute;
